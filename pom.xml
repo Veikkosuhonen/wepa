@@ -10,12 +10,12 @@
     </parent>
     <groupId>com.github.vesuvesu</groupId>
     <artifactId>wepa</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>wepa</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>14</java.version>
     </properties>
 
     <dependencies>
