@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wepa</title>
+</head>
+<body>
+    <h1>Accounts</h1>
+    <ul>
+        <li th:each="account : ${accounts}">
+            <span th:text="${account.username}">username</span>
+        </li>
+    </ul>
+
+    <form method="post" th:action="@{/accounts}">
+        <input type="text" name="username"/>
+        <input type="password" name="password">
+        <input type="text" name="name">
+        <input type="submit" value="Add new account">
+    </form>
+</body>
+</html>

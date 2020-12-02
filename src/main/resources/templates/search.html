@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wepa</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <form method="post" th:action="@{/search}">
+        <input type="text" name="entry"/>
+        <input type="submit" value="Search">
+    </form>
+<ul>
+   <li th:each="user : ${users}">
+        <span th:text="${user}"></span>
+   </li>
+</ul>
+</body>
+</html>
