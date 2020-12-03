@@ -1,9 +1,7 @@
 package com.github.vesuvesu.wepa;
 
-import javassist.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No such user: " + username);
         }
 
-        return new User(
+        return new org.springframework.security.core.userdetails.User(
                 a.getUsername(),
                 a.getPassword(),
                 true,

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My account</title>
+</head>
+<body>
+
+<h1 th:text="${user.name}"></h1>
+
+<h3>Friend requests</h3>
+<ul>
+    <li th:each="request : ${user.friendRequests}">
+        <form>
+            <input type="text" readonly="true" th:value="${request.name}"/>
+            <input type="submit" value="accept"/>
+        </form>
+    </li>
+</ul>
+
+<h3>Friends</h3>
+<ul>
+    <li th:each="friend : ${user.friends}">
+        <span th:text="${friend.name}">name</span>
+    </li>
+</ul>
+
+</body>
+</html>
