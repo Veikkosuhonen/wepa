@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class SearchController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private UserRepository userRepository;
 
     @GetMapping("/search")
     public String searchPage(Model model) {
@@ -33,8 +31,8 @@ public class SearchController {
 
     @GetMapping("/search/{entry}")
     public String searchResults(@PathVariable String entry, Model model) {
-        List<Account> results = accountRepository.findByNameContaining(entry, PageRequest.of(0, 10)).getContent();
-        model.addAttribute("users", results.stream().map(account -> account.getName()).collect(Collectors.toList()));
+        List<User> results = userRepository.findByNameContaining(entry);
+        model.addAttribute("users", results);
         return "search";
     }
 }

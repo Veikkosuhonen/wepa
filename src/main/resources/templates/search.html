@@ -5,14 +5,19 @@
     <title>Wepa</title>
 </head>
 <body>
-    <h1>Search</h1>
-    <form method="post" th:action="@{/search}">
-        <input type="text" name="entry"/>
+    <h1>Search from users</h1>
+    <form method="post" action="/search">
+        <label for="entry">Type a search word</label><br/>
+        <input type="search" id="entry" name="entry"/>
         <input type="submit" value="Search">
     </form>
 <ul>
    <li th:each="user : ${users}">
-        <span th:text="${user}"></span>
+
+       <form method="post" action="/friend-request" >
+           <input readonly="true" th:value="${user.name}" name="username"/>
+           <input type="submit" value="Send a friend request"/>
+       </form>
    </li>
 </ul>
 </body>
