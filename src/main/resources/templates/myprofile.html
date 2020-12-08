@@ -12,11 +12,11 @@
 
     <h3>Incoming friend requests</h3>
     <ul class="table">
-        <li th:each="request : ${user.friendRequests}">
-            <form method="post" action="/users/${request.name}/accept">
-                <span th:text="${request.name}"/>
-                <button type="submit" class="btn btn-primary">Accept</button>
-                <button type="submit" class="btn btn-outline-danger">Decline</button>
+        <li th:each="sender : ${user.friendRequests}">
+            <form th:action="@{/users/{name}/accept(name=${sender.name})}" method="post" >
+                <span th:text="${sender.name}"/>
+                <button type="submit" class="btn btn-primary">Accepto</button>
+                <button type="submit" class="btn btn-outline-danger">Declineo</button>
             </form>
         </li>
     </ul>
