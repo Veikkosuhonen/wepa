@@ -1,5 +1,7 @@
 package com.github.vesuvesu.wepa;
 
+import com.github.vesuvesu.wepa.account.AccountRepository;
+import com.github.vesuvesu.wepa.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;

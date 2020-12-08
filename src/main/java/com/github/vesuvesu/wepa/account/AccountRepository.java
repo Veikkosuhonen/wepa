@@ -1,4 +1,4 @@
-package com.github.vesuvesu.wepa;
+package com.github.vesuvesu.wepa.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

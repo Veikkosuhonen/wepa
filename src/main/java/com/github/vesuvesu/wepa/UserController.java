@@ -1,5 +1,12 @@
 package com.github.vesuvesu.wepa;
 
+import com.github.vesuvesu.wepa.account.Account;
+import com.github.vesuvesu.wepa.account.AccountRepository;
+import com.github.vesuvesu.wepa.friend.FriendRequest;
+import com.github.vesuvesu.wepa.friend.FriendRequestRepository;
+import com.github.vesuvesu.wepa.friend.FriendRequestStatus;
+import com.github.vesuvesu.wepa.user.User;
+import com.github.vesuvesu.wepa.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Controller
 public class UserController {
@@ -19,22 +26,42 @@ public class UserController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private FriendRequestRepository friendRequestRepository;
+
     @Transactional
     @Secured("USER")
     @PostMapping("/users/{name}/friend")
     public String friendRequest(@PathVariable String name) {
+        System.out.println("Preparing friend request for " + name);
+
         Account account = accountRepository.findByUsername(
                 SecurityContextHolder.getContext().getAuthentication().getName());
 
         User sender = account.getUser();
         User receiver = userRepository.findByName(name);
 
-        if (receiver != null && sender != null) {
-            if (!receiver.getFriendRequests().contains(sender))
-                receiver.getFriendRequests().add(sender);
+        if (receiver == null || sender == null) {
+            System.out.println("something went wrong when sending a request to " + name);
+            //Todo error message
+            return "redirect:/search";
         }
+
+        //Add request to receivers list if it contains none from the sender
+        if (receiver.getIncomingFriendRequests().stream().noneMatch(r -> sender.equals(userRepository))) {
+
+            FriendRequest request = new FriendRequest(sender, receiver, new Date(), FriendRequestStatus.PENDING);
+            friendRequestRepository.save(request);
+
+            sender.getSentFriendRequests().add(request);
+            receiver.getIncomingFriendRequests().add(request);
+        } else {
+            System.out.println("request not added since " + name + " already had a request from user");
+        }
+
         return "redirect:/search";
     }
+
 
     @Transactional
     @Secured("USER")
@@ -44,36 +71,45 @@ public class UserController {
                 SecurityContextHolder.getContext().getAuthentication().getName());
 
         User actor = account.getUser();
-        if (actor==null) {
-            System.out.println("Actor of this friend request is null");
-            return "redirect:/myprofile";
-        }
 
         User sender = userRepository.findByName(name);
         if (sender==null) {
             System.out.println("Sender '"+name+"' of this friend request is null");
+            //todo 404
             return "redirect:/myprofile";
         }
 
-        if (actor.getFriendRequests().contains(sender)) {
+        FriendRequest request = actor.getIncomingFriendRequests()
+                .stream()
+                .filter(r -> r.getSender().equals(sender))
+                .findFirst().get();
+
+        if (request != null) {
 
             if (action.equals("accept")) {
+                request.setStatus(FriendRequestStatus.ACCEPTED);
+
                 sender.getFriends().add(actor);
                 actor.getFriends().add(sender);
                 //Todo send accept message to sender
 
-                actor.getFriendRequests().remove(sender);
                 System.out.println(actor.getName() + " accepted friend request from " + sender.getName());
 
             } else if (action.equals("decline")) {
-                actor.getFriendRequests().remove(sender);
+                request.setStatus(FriendRequestStatus.DECLINED);
+
                 //Todo send decline message to sender
 
                 System.out.println(actor.getName() + " declined friend request from " + sender.getName());
 
-            } else {System.out.println("Action '"+action+"' was invalid");}
-        } else {System.out.println("This friend request did not exist");}
-
+            } else {
+                System.out.println("Action '"+action+"' was invalid");
+                //todo 404
+            }
+        } else {
+            System.out.println("This friend request did not exist");
+            //todo 404
+        }
 
         return "redirect:/myprofile";
     }

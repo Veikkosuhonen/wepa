@@ -1,5 +1,9 @@
 package com.github.vesuvesu.wepa;
 
+import com.github.vesuvesu.wepa.account.Account;
+import com.github.vesuvesu.wepa.account.AccountRepository;
+import com.github.vesuvesu.wepa.user.User;
+import com.github.vesuvesu.wepa.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

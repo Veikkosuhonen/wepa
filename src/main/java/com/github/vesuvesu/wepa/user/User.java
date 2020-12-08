@@ -1,12 +1,12 @@
-package com.github.vesuvesu.wepa;
+package com.github.vesuvesu.wepa.user;
 
+import com.github.vesuvesu.wepa.friend.FriendRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +22,15 @@ public class User extends AbstractPersistable<Long> {
     private List<User> friends;
 
     @ManyToMany
-    private List<User> friendRequests;
+    private List<FriendRequest> sentFriendRequests;
+
+    @ManyToMany
+    private List<FriendRequest> incomingFriendRequests;
 
     public User(String name) {
         this.name = name;
         this.friends = new ArrayList<>();
-        this.friendRequests = new ArrayList<>();
+        this.sentFriendRequests = new ArrayList<>();
+        this.incomingFriendRequests = new ArrayList<>();
     }
 }

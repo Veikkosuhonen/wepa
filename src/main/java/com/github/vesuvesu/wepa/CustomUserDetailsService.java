@@ -1,5 +1,7 @@
 package com.github.vesuvesu.wepa;
 
+import com.github.vesuvesu.wepa.account.Account;
+import com.github.vesuvesu.wepa.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,15 +1,13 @@
-package com.github.vesuvesu.wepa;
+package com.github.vesuvesu.wepa.account;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+import com.github.vesuvesu.wepa.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data

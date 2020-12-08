@@ -22,15 +22,18 @@
         </div>
     </form>
 
-    <ul>
-       <li th:each="user : ${users}">
-
-           <form method="post" action="/users/${user.name}/friend">
-               <span th:text="${user.name}"/>
-               <input type="submit" value="Send a friend request"/>
+    <div class="container p-4 m-2">
+       <div class="row" th:each="user : ${users}">
+           <form method="post" th:action="@{/users/{name}/friend(name=${user.name})}">
+               <div class="form-row">
+                   <label class="col-form-label" th:text="${user.name}" for="friend"></label>
+                   <div class="col">
+                       <button class="btn btn-outline-success" type="submit" id="friend">Add friend</button>
+                   </div>
+               </div>
            </form>
-       </li>
-    </ul>
+       </div>
+    </div>
 
 </div>
 
