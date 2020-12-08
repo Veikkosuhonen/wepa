@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Wepa</title>
-</head>
-<body>
-    <h1>Search from users</h1>
-    <form method="post" action="/search">
-        <label for="entry">Type a search word</label><br/>
-        <input type="search" id="entry" name="entry"/>
-        <input type="submit" value="Search">
-    </form>
-<ul>
-   <li th:each="user : ${users}">
 
-       <form method="post" action="/friend-request" >
-           <input readonly="true" th:value="${user.name}" name="username"/>
-           <input type="submit" value="Send a friend request"/>
-       </form>
-   </li>
-</ul>
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+
+<div th:replace="fragments/layout :: nav"></div>
+
+<div class="container" style="margin-top:30px">
+
+    <h1>Search from users</h1>
+
+    <form method="post" action="/search">
+        <div class="form-row">
+            <div class="col">
+                <input class="form-control" id="entry" name="entry" placeholder="searchword"/>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-primary" type="submit" >Search</button>
+            </div>
+        </div>
+    </form>
+
+    <ul>
+       <li th:each="user : ${users}">
+
+           <form method="post" action="/users/${user.name}/friend">
+               <span th:text="${user.name}"/>
+               <input type="submit" value="Send a friend request"/>
+           </form>
+       </li>
+    </ul>
+
+</div>
+
 </body>
 </html>

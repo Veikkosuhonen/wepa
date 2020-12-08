@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>My account</title>
-</head>
+
+<head th:replace="fragments/layout :: head"></head>
+
 <body>
 
-<h1 th:text="${user.name}"></h1>
+<div th:replace="fragments/layout :: nav"></div>
 
-<h3>Friend requests</h3>
-<ul>
-    <li th:each="request : ${user.friendRequests}">
-        <form>
-            <input type="text" readonly="true" th:value="${request.name}"/>
-            <input type="submit" value="accept"/>
-        </form>
-    </li>
-</ul>
+<div class="container">
+    <h1 th:text="${user.name}"></h1>
 
-<h3>Friends</h3>
-<ul>
-    <li th:each="friend : ${user.friends}">
-        <span th:text="${friend.name}">name</span>
-    </li>
-</ul>
+    <h3>Incoming friend requests</h3>
+    <ul class="table">
+        <li th:each="request : ${user.friendRequests}">
+            <form method="post" action="/users/${request.name}/accept">
+                <span th:text="${request.name}"/>
+                <button type="submit" class="btn btn-primary">Accept</button>
+                <button type="submit" class="btn btn-outline-danger">Decline</button>
+            </form>
+        </li>
+    </ul>
+
+    <h3>Friends</h3>
+    <ul class="table">
+        <li th:each="friend : ${user.friends}">
+            <span th:text="${friend.name}">name</span>
+        </li>
+    </ul>
+</div>
 
 </body>
 </html>

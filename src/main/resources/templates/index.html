@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Wepa</title>
-</head>
+
+<head th:replace="fragments/layout :: head"></head>
+
 <body>
-    <h1 th:text="${'Welcome to my ' + message + ' Wepa-project app'}">Welcome to my Wepa-project app</h1>
+
+<div th:replace="fragments/layout :: jumbotron"></div>
+
+<div th:replace="fragments/layout :: nav"></div>
+
+<div class="container">
+    <div class="row p-3">
+        <h1 th:text="${'Welcome to my ' + message + ' Wepa-project app'}">Welcome to my Wepa-project app</h1>
+    </div>
+    <div class="row">
+        <section th:replace="fragments/lorem :: lorem"></section>
+    </div>
+</div>
+
 </body>
 </html>
