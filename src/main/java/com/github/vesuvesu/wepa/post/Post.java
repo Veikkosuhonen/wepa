@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.Date;
 
 @Entity
@@ -15,9 +17,12 @@ import java.util.Date;
 @AllArgsConstructor @NoArgsConstructor
 public class Post extends AbstractPersistable<Long> {
 
-    private byte[] image;
+    @OneToOne
+    private ImageObject image;
 
     private Date date;
+
+    private String caption;
 
     @ManyToOne
     private User user;
