@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +22,10 @@ public class User extends AbstractPersistable<Long> {
     @ManyToMany
     private List<User> friends;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "sender")
     private List<FriendRequest> sentFriendRequests;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "receiver")
     private List<FriendRequest> incomingFriendRequests;
 
     public User(String name) {

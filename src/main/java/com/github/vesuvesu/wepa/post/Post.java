@@ -1,4 +1,4 @@
-package com.github.vesuvesu.wepa.friend;
+package com.github.vesuvesu.wepa.post;
 
 import com.github.vesuvesu.wepa.user.User;
 import lombok.AllArgsConstructor;
@@ -13,16 +13,12 @@ import java.util.Date;
 @Entity
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public class FriendRequest extends AbstractPersistable<Long> {
+public class Post extends AbstractPersistable<Long> {
+
+    private byte[] image;
+
+    private Date date;
 
     @ManyToOne
-    private User sender;
-
-    @ManyToOne
-    private User receiver;
-
-    private Date creationDate;
-
-    private FriendRequestStatus status;
+    private User user;
 }
-
