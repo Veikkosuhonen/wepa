@@ -1,5 +1,6 @@
 package com.github.vesuvesu.wepa.controller;
 
+import com.github.vesuvesu.wepa.UserService;
 import com.github.vesuvesu.wepa.account.Account;
 import com.github.vesuvesu.wepa.account.AccountRepository;
 import com.github.vesuvesu.wepa.friend.FriendRequest;
@@ -24,10 +25,10 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private FriendRequestRepository friendRequestRepository;
 
     @Autowired
-    private FriendRequestRepository friendRequestRepository;
+    private UserService userService;
 
     @Transactional
     @Secured("USER")
@@ -35,10 +36,8 @@ public class UserController {
     public String friendRequest(@PathVariable String name) {
         System.out.println("Preparing friend request for " + name);
 
-        Account account = accountRepository.findByUsername(
-                SecurityContextHolder.getContext().getAuthentication().getName());
+        User sender = userService.getUser();
 
-        User sender = account.getUser();
         User receiver = userRepository.findByName(name);
 
         if (receiver == null || sender == null) {
@@ -67,10 +66,7 @@ public class UserController {
     @Secured("USER")
     @PostMapping("/users/{name}/{action}")
     public String resolveFriendRequest(@PathVariable String name, @PathVariable String action) {
-        Account account = accountRepository.findByUsername(
-                SecurityContextHolder.getContext().getAuthentication().getName());
-
-        User actor = account.getUser();
+        User actor = userService.getUser();
 
         User sender = userRepository.findByName(name);
         if (sender==null) {

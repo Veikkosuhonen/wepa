@@ -1,5 +1,6 @@
 package com.github.vesuvesu.wepa.controller;
 
+import com.github.vesuvesu.wepa.UserService;
 import com.github.vesuvesu.wepa.account.AccountRepository;
 import com.github.vesuvesu.wepa.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProfileController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private UserService userService;
 
     @Secured("USER")
     @GetMapping("/myprofile")
     public String userView(Model model) {
 
-        User user = accountRepository.findByUsername(SecurityContextHolder.getContext()
-                .getAuthentication().getName()).getUser();
+        User user = userService.getUser();
 
         model.addAttribute("user", user);
         return "myprofile";

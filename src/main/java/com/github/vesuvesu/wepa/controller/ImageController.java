@@ -1,5 +1,6 @@
 package com.github.vesuvesu.wepa.controller;
 
+import com.github.vesuvesu.wepa.UserService;
 import com.github.vesuvesu.wepa.account.Account;
 import com.github.vesuvesu.wepa.account.AccountRepository;
 import com.github.vesuvesu.wepa.post.ImageObject;
@@ -30,7 +31,7 @@ public class ImageController {
     private UserRepository userRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private UserService userService;
 
     @GetMapping(path = "/users/{name}/posts/{id}/image", produces = "image/png")
     @ResponseBody
@@ -48,12 +49,7 @@ public class ImageController {
 
     @PostMapping("/myprofile/newpost")
     public String newPost(@RequestParam("caption") String caption, @RequestParam("file")MultipartFile file) throws IOException {
-        User user = accountRepository.findByUsername(
-                SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName())
-                .getUser();
+        User user = userService.getUser();
 
         ImageObject img = new ImageObject(file.getBytes());
         imageRepository.save(img);
