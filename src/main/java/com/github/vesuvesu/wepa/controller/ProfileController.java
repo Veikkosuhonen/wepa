@@ -1,4 +1,4 @@
-package com.github.vesuvesu.wepa;
+package com.github.vesuvesu.wepa.controller;
 
 import com.github.vesuvesu.wepa.account.AccountRepository;
 import com.github.vesuvesu.wepa.user.User;

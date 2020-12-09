@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+
+<div th:replace="fragments/layout :: nav"></div>
+
+<div class="container">
+    <form th:action="@{/myprofile/newpost}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="text" name="caption" />
+        <input type="submit" value="Send!"/>
+    </form>
+</div>
+
+</body>
+</html>

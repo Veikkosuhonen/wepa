@@ -1,6 +1,7 @@
 package com.github.vesuvesu.wepa.user;
 
 import com.github.vesuvesu.wepa.friend.FriendRequest;
+import com.github.vesuvesu.wepa.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class User extends AbstractPersistable<Long> {
 
     @OneToMany(mappedBy = "receiver")
     private List<FriendRequest> incomingFriendRequests;
+
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts;
 
     public User(String name) {
         this.name = name;

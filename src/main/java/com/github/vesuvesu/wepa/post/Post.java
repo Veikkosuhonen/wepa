@@ -25,5 +25,5 @@ public class Post extends AbstractPersistable<Long> {
     private String caption;
 
     @ManyToOne
-    private User user;
+    private User author;
 }
