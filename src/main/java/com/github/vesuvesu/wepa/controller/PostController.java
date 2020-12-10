@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PostController {
@@ -46,9 +47,9 @@ public class PostController {
 
     @Secured("USER")
     @PostMapping("/users/{username}/posts/{id}/like")
-    public String likePost(@PathVariable String username, @PathVariable Long id) {
+    public String likePost(@PathVariable String username, @PathVariable Long id, @RequestParam boolean fullview) {
 
         postService.likePost(username, id);
-        return "redirect:/users/"+username+"/posts/"+id;
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myalbum";
     }
 }

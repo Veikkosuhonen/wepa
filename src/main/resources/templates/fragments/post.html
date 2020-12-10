@@ -5,7 +5,7 @@
 
 <body>
 
-<div th:fragment="post(post)" class="card">
+<div th:fragment="post(post, fullView)" class="card">
 
     <a th:href="@{/users/{username}/posts/{id}(username=${post.author.name}, id=${post.id})}">
         <img th:src="@{/users/{username}/posts/{id}/image(username=${post.author.name}, id=${post.id})}" class="card-img-top">
@@ -18,7 +18,9 @@
             </div>
             <div class="col-4">
 
-                <form class="form-row align-items-center" method="POST" th:action="@{/users/{username}/posts/{id}/like(username=${post.author.name}, id=${post.id})}">
+                <form class="form-row align-items-center"
+                        method="POST"
+                        th:action="@{/users/{username}/posts/{id}/like?fullview={fullView}(username=${post.author.name}, id=${post.id}, fullView=${fullView})}">
                     <button type="submit" class="btn btn-light heart mr-2">
                         <img class="img-fluid" src="/assets/svg/heart.svg" title="Like">
                     </button>
