@@ -8,11 +8,35 @@
 <div th:replace="fragments/layout :: nav"></div>
 
 <div class="container">
+    <div class="row m-4 p-2">
+        <a class="btn btn-outline-success" href="/newpost">Add a photo to your album</a>
+    </div>
+</div>
+
+<div class="container">
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col" th:each="post : ${user.posts}">
             <div class="card">
-                <img th:src="@{/users/{username}/posts/{id}/image(username=${user.name}, id=${post.id})}" class="card-img-top">
-                <p th:text="${post.caption}" class="card-text"></p>
+                <a th:href="@{/users/{username}/posts/{id}(username=${user.name}, id=${post.id})}">
+                    <img th:src="@{/users/{username}/posts/{id}/image(username=${user.name}, id=${post.id})}" class="card-img-top">
+                </a>
+                <div class="card-body">
+                    <div class="row align-items-top">
+                        <div class="col-8">
+                            <p th:text="${post.caption}" class="card-text"></p>
+                        </div>
+                        <div class="col-4">
+                            <form class="form-row">
+                                <button type="button" class="btn btn-light heart">
+                                    <img class="img-fluid" src="/assets/svg/heart.svg" title="Like">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <span th:text="${#calendars.format(post.date, 'dd/MM/yyyy hh.mm')}"></span>
+                </div>
             </div>
         </div>
     </div>
