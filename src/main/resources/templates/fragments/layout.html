@@ -42,26 +42,44 @@
 
 </nav>
 
-<div th:fragment="incomingRequests(requests)">
+<div class="container" th:fragment="incomingRequests(requests)">
     <h3>Incoming friend requests</h3>
-    <ul class="table">
-        <li th:each="request : ${requests}">
-            <form th:action="@{/users/{name}/accept(name=${request.sender.name})}" method="post" >
-                <span th:text="${request.sender.name}"/>
-                <button type="submit" class="btn btn-primary">Accepto</button>
-                <button type="submit" class="btn btn-outline-danger">Declineo</button>
-            </form>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="row align-items-center justify-content-start border border-outline-light rounded p-2" th:each="request : ${requests}">
+
+            <div class="col-4">
+                <span th:text="${request.senderName}"/>
+            </div>
+
+            <div class="col-1">
+                <form th:action="@{/users/{name}/friend/accept(name=${request.senderName})}" method="post" >
+                    <button type="submit" class="btn btn-primary">Accept</button>
+                </form>
+            </div>
+
+            <div class="col-1">
+                <form th:action="@{/users/{name}/friend/decline(name=${request.senderName})}" method="post" >
+                    <button type="submit" class="btn btn-outline-danger">Decline</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <div th:fragment="sentRequests(requests)">
     <h3>Sent friend requests</h3>
-    <ul class="table">
-        <li th:each="request : ${requests}">
-            <span th:text="${request.receiver.name}"/>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="row align-items-center justify-content-start border border-outline-light rounded p-2" th:each="request : ${requests}">
+            <div class="col-4">
+                <span th:text="${request.receiverName}"/>
+            </div>
+
+            <div class="col-1">
+                <span th:text="${request.status}"/>
+            </div>
+        </div>
+    </div>
 </div>
 
 

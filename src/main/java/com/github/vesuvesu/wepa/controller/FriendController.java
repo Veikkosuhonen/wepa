@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Date;
 
 @Controller
-public class UserController {
+public class FriendController {
 
     @Autowired
     private UserRepository userRepository;
@@ -49,7 +49,7 @@ public class UserController {
         //Add request to receivers list if it contains none from the sender
         if (receiver.getIncomingFriendRequests().stream().noneMatch(r -> sender.equals(userRepository))) {
 
-            FriendRequest request = new FriendRequest(sender, receiver, new Date(), FriendRequestStatus.PENDING);
+            FriendRequest request = new FriendRequest(sender.getName(), receiver.getName(), new Date(), FriendRequestStatus.PENDING);
             friendRequestRepository.save(request);
 
             sender.getSentFriendRequests().add(request);
@@ -64,7 +64,7 @@ public class UserController {
 
     @Transactional
     @Secured("USER")
-    @PostMapping("/users/{name}/{action}")
+    @PostMapping("/users/{name}/friend/{action}")
     public String resolveFriendRequest(@PathVariable String name, @PathVariable String action) {
         User actor = userService.getUser();
 
@@ -77,21 +77,23 @@ public class UserController {
 
         FriendRequest request = actor.getIncomingFriendRequests()
                 .stream()
-                .filter(r -> r.getSender().equals(sender))
+                .filter(r -> r.getSenderName().equals(sender.getName()))
                 .findFirst().get();
 
         if (request != null) {
 
             if (action.equals("accept")) {
+                actor.getIncomingFriendRequests().remove(request);
                 request.setStatus(FriendRequestStatus.ACCEPTED);
 
-                sender.getFriends().add(actor);
-                actor.getFriends().add(sender);
+                sender.addFriend(actor);
+                actor.addFriend(sender);
                 //Todo send accept message to sender
 
                 System.out.println(actor.getName() + " accepted friend request from " + sender.getName());
 
             } else if (action.equals("decline")) {
+                actor.getIncomingFriendRequests().remove(request);
                 request.setStatus(FriendRequestStatus.DECLINED);
 
                 //Todo send decline message to sender

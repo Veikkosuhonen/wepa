@@ -25,16 +25,16 @@ public class User extends AbstractPersistable<Long> {
     @ManyToMany
     private List<User> friends;
 
-    @OneToMany(mappedBy = "sender")
+    @OneToMany
     private List<FriendRequest> sentFriendRequests;
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany
     private List<FriendRequest> incomingFriendRequests;
 
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
-    private Set<Long> likedPosts;
+    private HashSet<Long> likedPosts;
 
     public User(String name) {
         this.name = name;
@@ -42,5 +42,13 @@ public class User extends AbstractPersistable<Long> {
         this.sentFriendRequests = new ArrayList<>();
         this.incomingFriendRequests = new ArrayList<>();
         this.likedPosts = new HashSet<>();
+    }
+
+    public boolean addFriend(User friend) {
+        if (this.friends.contains(friend)) {
+            return false;
+        }
+        this.friends.add(friend);
+        return true;
     }
 }
