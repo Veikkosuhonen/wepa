@@ -8,26 +8,9 @@
 <div th:replace="fragments/layout :: nav"></div>
 
 <div class="container">
-    <div class="card">
-
-        <img th:src="@{/users/{username}/posts/{id}/image(username=${post.author.name}, id=${post.id})}" class="card-img-top">
-
-        <div class="card-body">
-            <div class="row align-items-top">
-                <div class="col-8">
-                    <p th:text="${post.caption}" class="card-text"></p>
-                </div>
-                <div class="col-4">
-                    <form class="form-row">
-                        <button type="button" class="btn btn-light heart">
-                            <img class="img-fluid" src="/assets/svg/heart.svg" title="Like">
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer text-muted">
-            <span th:text="${#calendars.format(post.date, 'dd/MM/yyyy hh.mm')}"></span>
+    <div class="row m-4">
+        <div class="col-md-8">
+            <div th:replace="fragments/post :: post(post=${post})"></div>
         </div>
     </div>
 </div>
