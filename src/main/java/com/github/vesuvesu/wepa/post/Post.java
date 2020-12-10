@@ -26,4 +26,6 @@ public class Post extends AbstractPersistable<Long> {
 
     @ManyToOne
     private User author;
+
+    private int likes;
 }

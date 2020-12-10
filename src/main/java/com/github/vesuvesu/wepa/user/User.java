@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -32,10 +34,13 @@ public class User extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
+    private Set<Long> likedPosts;
+
     public User(String name) {
         this.name = name;
         this.friends = new ArrayList<>();
         this.sentFriendRequests = new ArrayList<>();
         this.incomingFriendRequests = new ArrayList<>();
+        this.likedPosts = new HashSet<>();
     }
 }

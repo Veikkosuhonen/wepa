@@ -54,7 +54,7 @@ public class ImageController {
         ImageObject img = new ImageObject(file.getBytes());
         imageRepository.save(img);
 
-        Post post = new Post(img, new Date(), caption, user);
+        Post post = new Post(img, new Date(), caption, user, 0);
         postRepository.save(post);
 
         return "redirect:/myprofile";
