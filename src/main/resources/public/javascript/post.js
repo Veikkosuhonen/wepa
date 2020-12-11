@@ -5,5 +5,4 @@ function toggleComments(id) {
     } else {
         comments.style.display = "none";
     }
-    console.log("yes")
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User extends AbstractPersistable<Long> {
 
+    @Size(min=3, max=20)
     private String name;
 
     @ManyToMany
@@ -30,6 +32,7 @@ public class User extends AbstractPersistable<Long> {
     @OneToMany
     private List<FriendRequest> incomingFriendRequests;
 
+    @Size(max = 10)
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 

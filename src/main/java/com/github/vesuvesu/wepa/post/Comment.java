@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -15,6 +16,7 @@ public class Comment extends AbstractPersistable<Long> {
 
     private String author;
 
+    @Size(max=140)
     private String text;
 
     private Date date;
