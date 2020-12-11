@@ -38,6 +38,6 @@ public class FriendController {
     @PostMapping("/users/{name}/friend/{action}")
     public String resolveFriendRequest(@PathVariable String name, @PathVariable String action) {
         friendService.resolveRequest(name, action);
-        return "redirect:/myprofile";
+        return "redirect:/myprofile?tab=friends";
     }
 }

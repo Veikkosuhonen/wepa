@@ -57,6 +57,6 @@ public class ImageController {
         Post post = new Post(img, caption, user);
         postRepository.save(post);
 
-        return "redirect:/myalbum";
+        return "redirect:/myprofile?tab=album";
     }
 }

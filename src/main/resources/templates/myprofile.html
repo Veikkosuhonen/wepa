@@ -8,18 +8,44 @@
 <div th:replace="fragments/layout :: nav"></div>
 
 <div class="container">
-    <h1 th:text="${user.name}"></h1>
 
-    <h3>Friends</h3>
-    <ul class="table">
-        <li th:each="friend : ${user.friends}">
-            <span th:text="${friend.name}">name</span>
-        </li>
-    </ul>
+    <div th:replace="fragments/user :: profileUser(user=${user})"></div>
 
-    <div th:replace="${user.incomingFriendRequests.isEmpty()} ? ~{fragments/layout :: empty} : ~{fragments/layout :: incomingRequests( requests=${user.incomingFriendRequests} )}"></div>
+    <script th:src="@{/javascript/myprofile.js}" defer></script>
 
-    <div th:replace="${user.sentFriendRequests.isEmpty()} ? ~{fragments/layout :: empty} : ~{fragments/layout :: sentRequests( requests=${user.sentFriendRequests} )}"></div>
+    <div class="row">
+        <div class="col">
+            <a href="#wall" class="btn btn-primary" onclick="toggleElement('wall')" id="wallButton">Wall</a>
+        </div>
+        <div class="col">
+            <a href="#album" class="btn btn-outline-primary" onclick="toggleElement('album')" id="albumButton">Album</a>
+        </div>
+        <div class="col">
+            <a href="#friends" class="btn btn-outline-primary" onclick="toggleElement('friends')" id="friendsButton">Friends</a>
+        </div>
+    </div>
+
+    <div id="wall" style="display:block">
+        <div th:replace="fragments/wall :: wall(user=${user})"></div>
+    </div>
+    <div id="album" style="display:none">
+        <div th:replace="fragments/myalbum :: myalbum(user=${user})">album</div>
+    </div>
+
+
+    <div class="container" id="friends" style="display:none">
+        <h3>Friends</h3>
+        <ul class="table">
+            <li th:each="friend : ${user.friends}">
+                <span th:text="${friend.name}">name</span>
+            </li>
+        </ul>
+
+        <div th:replace="${user.incomingFriendRequests.isEmpty()} ? ~{fragments/layout :: empty} : ~{fragments/layout :: incomingRequests( requests=${user.incomingFriendRequests} )}"></div>
+
+        <div th:replace="${user.sentFriendRequests.isEmpty()} ? ~{fragments/layout :: empty} : ~{fragments/layout :: sentRequests( requests=${user.sentFriendRequests} )}"></div>
+    </div>
+
 </div>
 
 </body>

@@ -10,7 +10,7 @@
     <div class="card-header text-muted">
         <div class="row align-items-center">
             <div class="col ">
-                <div th:replace="fragments/user :: chatUser(user=${user})"></div>
+                <div th:replace="fragments/user :: chatUser(user=${post.author})"></div>
             </div>
             <div class="col-auto">
                 <button th:onclick="@{toggleActions('{id}')(id=${post.id})}" type="button" class="btn btn-outline-dark">Actions</button>
@@ -73,9 +73,12 @@
                 </form>
             </li>
             <li class="list-group-item" th:each="comment : ${post.comments}">
-                <div class="row">
-                    <div class="col-auto text-muted">
+                <div class="row align-items-center">
+                    <div class="col-auto">
                         <div th:replace="fragments/user :: chatUser(user=${comment.author})"></div>
+
+                    </div>
+                    <div class="col-auto text-muted">
                         <span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span>
                     </div>
                     <div class="col">

@@ -2,9 +2,6 @@ package com.github.vesuvesu.wepa.controller;
 
 import com.github.vesuvesu.wepa.PostService;
 import com.github.vesuvesu.wepa.UserService;
-import com.github.vesuvesu.wepa.post.Post;
-import com.github.vesuvesu.wepa.post.PostRepository;
-import com.github.vesuvesu.wepa.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -22,14 +19,6 @@ public class PostController {
 
     @Autowired
     private UserService userService;
-
-    @Secured("USER")
-    @GetMapping("/myalbum")
-    public String getAlbum(Model model) {
-        model.addAttribute("user", userService.getUser());
-        return "myalbum";
-    }
-
 
     @Secured("USER")
     @GetMapping("/newpost")
@@ -50,7 +39,7 @@ public class PostController {
     public String likePost(@PathVariable String username, @PathVariable Long id, @RequestParam boolean fullview) {
 
         postService.likePost(username, id);
-        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myalbum";
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myprofile?tab=album";
     }
 
     @Secured("USER")
@@ -58,6 +47,6 @@ public class PostController {
     public String commentPost(@PathVariable String username, @PathVariable Long id, @RequestParam String text, @RequestParam boolean fullview) {
 
         postService.comment(username, text, id);
-        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myalbum";
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myprofile?tab=album";
     }
 }

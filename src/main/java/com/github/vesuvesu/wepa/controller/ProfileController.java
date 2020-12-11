@@ -21,9 +21,7 @@ public class ProfileController {
     @Secured("USER")
     @GetMapping("/myprofile")
     public String userView(Model model) {
-
         User user = userService.getUser();
-
         model.addAttribute("user", user);
         return "myprofile";
     }
@@ -32,6 +30,6 @@ public class ProfileController {
     @PostMapping("/setprofilepic")
     public String setProfilePic(@RequestParam Long imgId) {
         userService.setProfilePic(imgId);
-        return "redirect:/myprofile";
+        return "redirect:/myprofile?tab=wall";
     }
 }
