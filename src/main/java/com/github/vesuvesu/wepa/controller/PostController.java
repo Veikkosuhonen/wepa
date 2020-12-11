@@ -52,4 +52,12 @@ public class PostController {
         postService.likePost(username, id);
         return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myalbum";
     }
+
+    @Secured("USER")
+    @PostMapping("/users/{username}/posts/{id}/comment")
+    public String commentPost(@PathVariable String username, @PathVariable Long id, @RequestParam String text) {
+
+        postService.comment(username, text, id);
+        return "redirect:/users/"+username+"/posts/"+id;
+    }
 }
