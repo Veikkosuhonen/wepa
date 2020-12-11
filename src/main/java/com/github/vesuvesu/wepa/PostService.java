@@ -74,7 +74,7 @@ public class PostService {
 
         User actor = userService.getUser();
 
-        Comment comment = new Comment(actor.getName(), text, new Date());
+        Comment comment = new Comment(actor, text, new Date());
         commentRepository.save(comment);
         post.getComments().add(comment);
 

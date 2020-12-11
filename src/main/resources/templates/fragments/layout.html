@@ -51,17 +51,17 @@
         <div class="row align-items-center justify-content-start border border-outline-light rounded p-2" th:each="request : ${requests}">
 
             <div class="col-4">
-                <span th:text="${request.senderName}"/>
+                <div th:replace="fragments/user :: chatUser(user=${request.sender})"></div>
             </div>
 
             <div class="col-1">
-                <form th:action="@{/users/{name}/friend/accept(name=${request.senderName})}" method="post" >
+                <form th:action="@{/users/{name}/friend/accept(name=${request.sender.name})}" method="post" >
                     <button type="submit" class="btn btn-primary">Accept</button>
                 </form>
             </div>
 
             <div class="col-1">
-                <form th:action="@{/users/{name}/friend/decline(name=${request.senderName})}" method="post" >
+                <form th:action="@{/users/{name}/friend/decline(name=${request.sender.name})}" method="post" >
                     <button type="submit" class="btn btn-outline-danger">Decline</button>
                 </form>
             </div>
@@ -75,7 +75,7 @@
     <div class="container">
         <div class="row align-items-center justify-content-start border border-outline-light rounded p-2" th:each="request : ${requests}">
             <div class="col-4">
-                <span th:text="${request.receiverName}"/>
+                <div th:replace="fragments/user :: chatUser(user=${request.receiver})"></div>
             </div>
 
             <div class="col-1">

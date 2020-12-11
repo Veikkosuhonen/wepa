@@ -15,9 +15,11 @@ import java.util.Date;
 @AllArgsConstructor @NoArgsConstructor
 public class FriendRequest extends AbstractPersistable<Long> {
 
-    private String senderName;
+    @ManyToOne
+    private User sender;
 
-    private String receiverName;
+    @ManyToOne
+    private User receiver;
 
     private Date creationDate;
 

@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfileController {
@@ -24,5 +26,12 @@ public class ProfileController {
 
         model.addAttribute("user", user);
         return "myprofile";
+    }
+
+    @Secured("USER")
+    @PostMapping("/setprofilepic")
+    public String setProfilePic(@RequestParam Long imgId) {
+        userService.setProfilePic(imgId);
+        return "redirect:/myprofile";
     }
 }

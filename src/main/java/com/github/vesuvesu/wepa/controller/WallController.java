@@ -58,7 +58,7 @@ public class WallController {
         User author = userService.getUser();
         if (wallOwner == null || author == null) return "redirect:/users/"+wallOwnerName+"/wall";
 
-        WallPost wallPost = new WallPost(text, author.getName(), wallOwner);
+        WallPost wallPost = new WallPost(text, author, wallOwner);
         wallPostRepository.save(wallPost);
 
         wallOwner.getWallPosts().add(wallPost);
@@ -73,7 +73,7 @@ public class WallController {
         WallPost wallPost = wallPostRepository.findByWallOwnerAndId(userRepository.findByName(wallOwnerName), id);
         if (wallPost == null) return "redirect:/users/"+wallOwnerName+"/wall";
 
-        Comment comment = new Comment(userService.getUser().getName(), text, new Date());
+        Comment comment = new Comment(userService.getUser(), text, new Date());
         commentRepository.save(comment);
         wallPost.getComments().add(comment);
 

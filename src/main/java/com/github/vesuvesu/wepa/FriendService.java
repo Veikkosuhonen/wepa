@@ -40,7 +40,7 @@ public class FriendService {
         //Add request to receivers list if it contains none from the sender
         if (receiver.getIncomingFriendRequests().stream().noneMatch(r -> sender.equals(userRepository))) {
 
-            FriendRequest request = new FriendRequest(sender.getName(), receiver.getName(), new Date(), FriendRequestStatus.PENDING);
+            FriendRequest request = new FriendRequest(sender, receiver, new Date(), FriendRequestStatus.PENDING);
             friendRequestRepository.save(request);
 
             sender.getSentFriendRequests().add(request);
@@ -66,19 +66,19 @@ public class FriendService {
 
         FriendRequest request = actor.getIncomingFriendRequests()
                 .stream()
-                .filter(r -> r.getSenderName().equals(sender.getName()))
+                .filter(r -> r.getSender().equals(sender))
                 .findFirst().get();
 
         if (request != null) {
 
             if (action.equals("accept")) {
                 actor.getIncomingFriendRequests().remove(request);
-                request.setStatus(FriendRequestStatus.ACCEPTED);
 
                 sender.addFriend(actor);
                 actor.addFriend(sender);
                 //Todo send accept message to sender
 
+                friendRequestRepository.delete(request);
                 System.out.println(actor.getName() + " accepted friend request from " + sender.getName());
 
             } else if (action.equals("decline")) {
@@ -86,7 +86,7 @@ public class FriendService {
                 request.setStatus(FriendRequestStatus.DECLINED);
 
                 //Todo send decline message to sender
-
+                friendRequestRepository.delete(request);
                 System.out.println(actor.getName() + " declined friend request from " + sender.getName());
 
             } else {

@@ -6,19 +6,28 @@
 <body>
 
 <div th:fragment="post(post, fullView)" class="card mb-4">
-
+    <script th:src="@{/javascript/post.js}" defer></script>
     <div class="card-header text-muted">
-        <i>
-            <a th:href="@{/users/{username}(username=${post.author.name})}">
-                <span th:text="${post.author.name}"></span>
-            </a>
-            posted
-        </i>
-        <span th:text="${#calendars.format(post.date, 'dd/MM/yyyy hh.mm')}"></span>
+        <div class="row align-items-center">
+            <div class="col ">
+                <div th:replace="fragments/user :: chatUser(user=${user})"></div>
+            </div>
+            <div class="col-auto">
+                <button th:onclick="@{toggleActions('{id}')(id=${post.id})}" type="button" class="btn btn-outline-dark">Actions</button>
+            </div>
+        </div>
+        <div class="row" style="display:none" th:id="'actions' + ${post.id}">
+            <form method="post" th:action="@{/setprofilepic(imgId=${post.image.id})}">
+                <button type="submit" class="btn btn-dark">Set profile picture</button>
+            </form>
+            <form>
+                <button type="submit" class="btn btn-outline-danger">Remove</button>
+            </form>
+        </div>
     </div>
 
     <a th:href="@{/users/{username}/posts/{id}(username=${post.author.name}, id=${post.id})}">
-        <img th:src="@{/users/{username}/posts/{id}/image(username=${post.author.name}, id=${post.id})}" class="card-img-top">
+        <img th:src="@{/users/{username}/images/{id}(username=${post.author.name}, id=${post.image.id})}" class="card-img-top">
     </a>
 
     <div class="card-body">
@@ -43,7 +52,6 @@
                     <button type="button" th:onclick="@{toggleComments('{id}')(id=${post.id})}" class="btn btn-light mr-2">
                         <img class="img-fluid" src="/assets/svg/chat.svg" title="Comment">
                     </button>
-                    <script th:src="@{/javascript/post.js}" defer></script>
                     <span th:text="${post.comments.size()}"></span>
                 </div>
             </div>
@@ -67,9 +75,7 @@
             <li class="list-group-item" th:each="comment : ${post.comments}">
                 <div class="row">
                     <div class="col-auto text-muted">
-                        <i>
-                            <a th:href="@{/users/{username}(username=${comment.author})}" th:text="${comment.author}"></a>
-                        </i>
+                        <div th:replace="fragments/user :: chatUser(user=${comment.author})"></div>
                         <span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span>
                     </div>
                     <div class="col">
@@ -85,13 +91,11 @@
 
 
 <div th:fragment="wallPost(post)" class="card-fluid mb-4">
+    <script th:src="@{/javascript/post.js}" defer></script>
     <div class="card-header text-muted">
-        <i>
-            <a th:href="@{/users/{username}(username=${post.author})}">
-                <span th:text="${post.author}"></span>
-            </a>
-            on
-        </i>
+        <div class="col ">
+            <div th:replace="fragments/user :: chatUser(user=${post.author})"></div>
+        </div>
         <span th:text="${#calendars.format(post.date, 'dd/MM/yyyy hh.mm')}"></span>
     </div>
 
@@ -117,7 +121,6 @@
                     <button type="button" th:onclick="@{toggleComments('{id}')(id=${post.id})}" class="btn btn-light mr-2">
                         <img class="img-fluid" src="/assets/svg/chat.svg" title="Comment">
                     </button>
-                    <script th:src="@{/javascript/post.js}" defer></script>
                     <span th:text="${post.comments.size()}"></span>
                 </div>
             </div>
@@ -140,9 +143,7 @@
                 <li class="list-group-item" th:each="comment : ${post.comments}">
                     <div class="row">
                         <div class="col-auto text-muted">
-                            <i>
-                                <a th:href="@{/users/{username}(username=${comment.author})}" th:text="${comment.author}"></a>
-                            </i>
+                            <div th:replace="fragments/user :: chatUser(user=${comment.author})"></div>
                             <span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span>
                         </div>
                         <div class="col">

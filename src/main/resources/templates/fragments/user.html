@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+
+<div th:fragment="chatUser(user)">
+        <a th:href="@{/users/{username}(username=${user.name})}">
+            <img class="rounded-pill" width="50" height="50" th:src="${user.hasProfilePic}? @{ /users/{username}/images/{id}(username=${user.name}, id=${user.profilePic.id})} : @{/assets/jpg/defaultProfilePic.jpg}"/>
+            <i>
+                <span th:text="${user.name}"></span>
+            </i>
+        </a>
+</div>
+
+</body>
+</html>

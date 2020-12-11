@@ -33,11 +33,11 @@ public class ImageController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(path = "/users/{name}/posts/{id}/image", produces = "image/png")
+    @GetMapping(path = "/users/{name}/images/{id}", produces = "image/png")
     @ResponseBody
     public byte[] getImage(@PathVariable String name, @PathVariable Long id) {
         User author = userRepository.findByName(name);
-        return postRepository.findByAuthorAndId(author, id).getImage().getContent();
+        return imageRepository.getOne(id).getContent();
     }
 
     @GetMapping(path = "/users/{name}/image", produces = "image/png")

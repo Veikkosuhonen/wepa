@@ -23,10 +23,12 @@
     </form>
 
     <div class="container p-4 m-2">
-       <div class="row" th:each="user : ${users}">
+       <div class="row align-items-center" th:each="user : ${users}">
+           <div class="col-auto">
+               <div th:replace="fragments/user :: chatUser(user=${user})"></div>
+           </div>
            <form method="post" th:action="@{/users/{name}/friend(name=${user.name})}">
                <div class="form-row">
-                   <label class="col-form-label" th:text="${user.name}" for="friend"></label>
                    <div class="col">
                        <button class="btn btn-outline-success" type="submit" id="friend">Add friend</button>
                    </div>

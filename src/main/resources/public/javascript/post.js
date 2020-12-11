@@ -6,3 +6,12 @@ function toggleComments(id) {
         comments.style.display = "none";
     }
 }
+
+function toggleActions(id) {
+    var actions = document.getElementById("actions" + id)
+    if (actions.style.display === "none") {
+        actions.style.display = "block";
+    } else {
+        actions.style.display = "none";
+    }
+}
