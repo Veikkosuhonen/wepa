@@ -2,6 +2,7 @@ package com.github.vesuvesu.wepa.user;
 
 import com.github.vesuvesu.wepa.friend.FriendRequest;
 import com.github.vesuvesu.wepa.post.Post;
+import com.github.vesuvesu.wepa.post.WallPost;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,9 @@ public class User extends AbstractPersistable<Long> {
     @Size(max = 10)
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "wallOwner")
+    private List<WallPost> wallPosts;
 
     private HashSet<Long> likedPosts;
 
