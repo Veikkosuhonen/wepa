@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,4 +33,13 @@ public class Post extends AbstractPersistable<Long> {
 
     @OneToMany
     private List<Comment> comments;
+
+    public Post(ImageObject img, String caption, User author) {
+        this.image = img;
+        this.caption = caption;
+        this.author = author;
+        date = new Date();
+        likes = 0;
+        comments = new ArrayList<>();
+    }
 }

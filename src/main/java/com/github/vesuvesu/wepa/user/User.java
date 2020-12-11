@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -41,6 +40,7 @@ public class User extends AbstractPersistable<Long> {
         this.friends = new ArrayList<>();
         this.sentFriendRequests = new ArrayList<>();
         this.incomingFriendRequests = new ArrayList<>();
+        this.posts = new ArrayList<>();
         this.likedPosts = new HashSet<>();
     }
 

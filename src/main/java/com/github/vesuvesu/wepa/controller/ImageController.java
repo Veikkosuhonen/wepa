@@ -54,7 +54,7 @@ public class ImageController {
         ImageObject img = new ImageObject(file.getBytes());
         imageRepository.save(img);
 
-        Post post = new Post(img, new Date(), caption, user, 0);
+        Post post = new Post(img, caption, user);
         postRepository.save(post);
 
         return "redirect:/myalbum";

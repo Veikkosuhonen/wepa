@@ -55,9 +55,9 @@ public class PostController {
 
     @Secured("USER")
     @PostMapping("/users/{username}/posts/{id}/comment")
-    public String commentPost(@PathVariable String username, @PathVariable Long id, @RequestParam String text) {
+    public String commentPost(@PathVariable String username, @PathVariable Long id, @RequestParam String text, @RequestParam boolean fullview) {
 
         postService.comment(username, text, id);
-        return "redirect:/users/"+username+"/posts/"+id;
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myalbum";
     }
 }

@@ -5,33 +5,9 @@
 
 <body>
 
-<div th:fragment="post(post, fullView)" class="card">
+<div th:fragment="post(post, fullView)" class="card mb-4">
 
-    <a th:href="@{/users/{username}/posts/{id}(username=${post.author.name}, id=${post.id})}">
-        <img th:src="@{/users/{username}/posts/{id}/image(username=${post.author.name}, id=${post.id})}" class="card-img-top">
-    </a>
-
-    <div class="card-body">
-        <div class="row align-items-top">
-            <div class="col-8">
-                <p th:text="${post.caption}" class="card-text"></p>
-            </div>
-            <div class="col-4">
-
-                <form class="form-row align-items-center"
-                        method="POST"
-                        th:action="@{/users/{username}/posts/{id}/like?fullview={fullView}(username=${post.author.name}, id=${post.id}, fullView=${fullView})}">
-                    <button type="submit" class="btn btn-light heart mr-2">
-                        <img class="img-fluid" src="/assets/svg/heart.svg" title="Like">
-                    </button>
-                    <span th:text="${post.likes}"></span>
-                </form>
-
-
-            </div>
-        </div>
-    </div>
-    <div class="card-footer text-muted">
+    <div class="card-header text-muted">
         <i>
             <a th:href="@{/users/{username}(username=${post.author.name})}">
                 <span th:text="${post.author.name}"></span>
@@ -40,6 +16,70 @@
         </i>
         <span th:text="${#calendars.format(post.date, 'dd/MM/yyyy hh.mm')}"></span>
     </div>
+
+    <a th:href="@{/users/{username}/posts/{id}(username=${post.author.name}, id=${post.id})}">
+        <img th:src="@{/users/{username}/posts/{id}/image(username=${post.author.name}, id=${post.id})}" class="card-img-top">
+    </a>
+
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col ml-3">
+                <p th:text="${post.caption}" class="card-text"></p>
+            </div>
+            <div class="col-auto">
+
+                <form class="form-row align-items-center"
+                        method="POST"
+                        th:action="@{/users/{username}/posts/{id}/like?fullview={fullView}(username=${post.author.name}, id=${post.id}, fullView=${fullView})}">
+                    <button type="submit" class="btn btn-light mr-2">
+                        <img class="img-fluid" src="/assets/svg/heart.svg" title="Like">
+                    </button>
+                    <span th:text="${post.likes}"></span>
+                </form>
+
+            </div>
+            <div class="col-auto">
+                <div class="row align-items-center mr-2">
+                    <button type="button" th:onclick="@{toggleComments('{id}')(id=${post.id})}" class="btn btn-light mr-2">
+                        <img class="img-fluid" src="/assets/svg/chat.svg" title="Comment">
+                    </button>
+                    <script th:src="@{/javascript/post.js}" defer></script>
+                    <span th:text="${post.comments.size()}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:id="'comments' + ${post.id}" style="display:none">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <form class="row"
+                      method="post"
+                      th:action="@{/users/{username}/posts/{id}/comment?fullview={fullView}(username=${post.author.name}, id=${post.id}, fullView=${fullView})}">
+                    <div class="col">
+                        <textarea class="form-control" placeholder="Your comment" maxlength="140" required="true" rows="1" name="text"></textarea>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-primary">Send</button>
+                    </div>
+                </form>
+            </li>
+            <li class="list-group-item" th:each="comment : ${post.comments}">
+                <div class="row">
+                    <div class="col-auto text-muted">
+                        <i>
+                            <a th:href="@{/users/{username}(username=${comment.author})}" th:text="${comment.author}"></a>
+                        </i>
+                        <span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span>
+                    </div>
+                    <div class="col">
+                        <span th:text="${comment.text}"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
 </div>
 
 </body>
