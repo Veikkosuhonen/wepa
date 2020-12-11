@@ -16,10 +16,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @NoArgsConstructor
 public class Account extends AbstractPersistable<Long> {
 
-    @Size(min=3, max=20)
     private String username;
 
-    @Size(min=3, max=20)
     private String password;
 
     public Account(String username, String password) {

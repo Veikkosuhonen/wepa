@@ -21,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 public class User extends AbstractPersistable<Long> {
 
-    @Size(min=3, max=20)
     private String name;
 
     @ManyToMany
@@ -33,7 +32,6 @@ public class User extends AbstractPersistable<Long> {
     @OneToMany
     private List<FriendRequest> incomingFriendRequests;
 
-    @Size(max = 10)
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
@@ -48,6 +46,7 @@ public class User extends AbstractPersistable<Long> {
         this.sentFriendRequests = new ArrayList<>();
         this.incomingFriendRequests = new ArrayList<>();
         this.posts = new ArrayList<>();
+        this.wallPosts = new ArrayList<>();
         this.likedPosts = new HashSet<>();
     }
 

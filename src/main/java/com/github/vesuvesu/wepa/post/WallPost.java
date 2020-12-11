@@ -25,6 +25,8 @@ public class WallPost extends AbstractPersistable<Long> {
     @Size(max=140)
     private String text;
 
+    private String author;
+
     @ManyToOne
     private User wallOwner;
 
@@ -33,8 +35,9 @@ public class WallPost extends AbstractPersistable<Long> {
     @OneToMany
     private List<Comment> comments;
 
-    public WallPost(String text, User wallOwner) {
+    public WallPost(String text, String author, User wallOwner) {
         this.text = text;
+        this.author = author;
         this.wallOwner = wallOwner;
         date = new Date();
         likes = 0;
