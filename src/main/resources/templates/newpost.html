@@ -8,10 +8,24 @@
 <div th:replace="fragments/layout :: nav"></div>
 
 <div class="container">
-    <form th:action="@{/myprofile/newpost}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <input type="text" name="caption" />
-        <input type="submit" value="Send!"/>
+    <form th:action="@{/post}" method="POST" enctype="multipart/form-data">
+        <script th:src="@{/javascript/newpost.js}"></script>
+
+        <div class="row justify-content-center m-4">
+            <div class="col-md-10 p-4 text-center border rounded border-primary">
+                <img class="rounded mb-2 img-fluid" id="preview" src="http://placehold.it/180" alt="your image" />
+                <input class="form-control" type='file' name="file" onchange="readURL(this);" />
+            </div>
+        </div>
+
+        <div class="row justify-content-center m-6">
+            <div class="col-5">
+                <textarea class="form-control" type="text" name="caption" placeholder="Caption..."></textarea>
+            </div>
+            <div class="col-auto">
+                <input class="btn btn-primary" type="submit" value="Post"/>
+            </div>
+        </div>
     </form>
 </div>
 
