@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.springframework.org/security/tags">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -18,23 +19,27 @@
 </div>
 
 <nav th:fragment="nav" class="navbar navbar-dark bg-dark sticky-top">
-    <a class="navbar-brand" href="/">Home</a>
+
 
     <div class="container">
-        <ul class="nav">
-            <li class="nav-item">
+        <div class="row">
+            <div class="col-auto">
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
+            <div class="nav-item col-auto">
                 <a class="nav-link" href="/profile">My profile</a>
-            </li>
-            <li class="nav-item">
+            </div>
+            <div class="nav-item col-auto">
                 <a class="nav-link" href="/search">Search</a>
-            </li>
-            <li class="nav-item">
+            </div>
+            <div class="nav-item col-auto">
                 <a class="nav-link" href="/accounts">Manage accounts</a>
-            </li>
-            <li class="nav-item">
+            </div>
+            <div class="nav-item col">
                 <a class="nav-link" href="/logout">Logout</a>
-            </li>
-        </ul>
+            </div>
+        </div>
+
     </div>
 
 </nav>
@@ -78,7 +83,6 @@
         </div>
     </div>
 </div>
-
 
 <p th:fragment="empty">Empty</p>
 

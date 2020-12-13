@@ -7,9 +7,13 @@ import com.github.vesuvesu.wepa.post.WallPostRepository;
 import com.github.vesuvesu.wepa.user.User;
 import com.github.vesuvesu.wepa.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class WallService {
@@ -25,6 +29,11 @@ public class WallService {
 
     @Autowired
     UserService userService;
+
+    public List<WallPost> getWallPosts(User user) {
+        Pageable pageable = PageRequest.of(0, 25, Sort.by("date").descending());
+        return wallPostRepository.findByWallOwner(user, pageable);
+    }
 
     public boolean wallPost(String text, String wallOwnerName) {
         User wallOwner = userRepository.findByName(wallOwnerName);

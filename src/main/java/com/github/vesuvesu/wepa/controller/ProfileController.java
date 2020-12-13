@@ -1,6 +1,7 @@
 package com.github.vesuvesu.wepa.controller;
 
 import com.github.vesuvesu.wepa.service.UserService;
+import com.github.vesuvesu.wepa.service.WallService;
 import com.github.vesuvesu.wepa.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -17,11 +18,15 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private WallService wallService;
+
     @Secured("USER")
     @GetMapping("/profile")
     public String userView(Model model) {
         User user = userService.getUser();
         model.addAttribute("user", user);
+        model.addAttribute("wall", wallService.getWallPosts(user));
         return "profile";
     }
 
@@ -37,6 +42,7 @@ public class ProfileController {
         }
 
         model.addAttribute("user", user);
+        model.addAttribute("wall", wallService.getWallPosts(user));
         return "publicprofile";
     }
 

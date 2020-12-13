@@ -26,7 +26,7 @@
     </div>
 
     <div id="_wall" style="display:block">
-        <div th:replace="fragments/wall :: wall(user=${user})"></div>
+        <div th:replace="fragments/wall :: wall(user=${user}, wall=${wall})"></div>
     </div>
 
     <div id="_album" style="display:none">
