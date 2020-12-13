@@ -21,7 +21,7 @@ public class FriendRequest extends AbstractPersistable<Long> {
     @ManyToOne
     private User receiver;
 
-    private Date creationDate;
+    private Date date;
 
     private FriendRequestStatus status;
 }

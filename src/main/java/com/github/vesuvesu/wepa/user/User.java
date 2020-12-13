@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -63,10 +62,15 @@ public class User extends AbstractPersistable<Long> {
     }
 
     public boolean addFriend(User friend) {
-        if (this.friends.contains(friend)) {
+        if (this.friends.contains(friend) && !this.equals(friend)) {
             return false;
         }
         this.friends.add(friend);
         return true;
+    }
+
+    public boolean canInteractWith(User user) {
+        if (friends.contains(user) || user.equals(this)) return true;
+        else return false;
     }
 }

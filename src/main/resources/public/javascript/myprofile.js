@@ -1,4 +1,4 @@
-const elements = ['wall', 'album', 'friends']
+const elements = ['wall', 'album', 'friend']
 
 toggleElement()
 
@@ -6,13 +6,11 @@ function toggleElement(id) {
     if (id === undefined) {
         id = window.location.hash.substring(1);
     }
-    if (id == null || !elements.includes(id)) {
-        id = 'wall'
+    if (id === '') {
+        id = 'friend'
     }
     for (e of elements) {
-        document.getElementById(e).style.display = 'none'
-        document.getElementById(e + 'Button').className = "btn btn-outline-primary"
+        document.getElementById(e).style.display = e == id ? 'block' : 'none'
+        document.getElementById(e + 'Button').className = e == id ? "btn btn-primary" : "btn btn-outline-primary"
     }
-    document.getElementById(id).style.display = 'block'
-    document.getElementById(id + 'Button').className = "btn btn-primary"
 }

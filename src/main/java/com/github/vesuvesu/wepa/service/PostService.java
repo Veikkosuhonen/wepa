@@ -1,4 +1,4 @@
-package com.github.vesuvesu.wepa;
+package com.github.vesuvesu.wepa.service;
 
 import com.github.vesuvesu.wepa.post.Comment;
 import com.github.vesuvesu.wepa.post.CommentRepository;
@@ -52,6 +52,7 @@ public class PostService {
         if (post == null) return false;
 
         User actor = userService.getUser();
+        if (!actor.canInteractWith(author)) return false;
 
         if (actor.getLikedPosts().contains(post.getId())) {
             actor.getLikedPosts().remove(post.getId());
@@ -73,6 +74,8 @@ public class PostService {
         if (post == null) return false;
 
         User actor = userService.getUser();
+        if (actor == null) return false;
+        if (!actor.canInteractWith(author)) return false;
 
         Comment comment = new Comment(actor, text, new Date());
         commentRepository.save(comment);

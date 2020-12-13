@@ -23,11 +23,11 @@
     </form>
 
     <div class="container p-4 m-2">
-       <div class="row align-items-center" th:each="user : ${users}">
+       <div class="row align-items-center" th:each="result : ${users}">
            <div class="col-auto">
-               <div th:replace="fragments/user :: chatUser(user=${user})"></div>
+               <div th:replace="fragments/user :: chatUser(user=${result})"></div>
            </div>
-           <form method="post" th:action="@{/users/{name}/friend(name=${user.name})}">
+           <form method="post" th:action="@{/users/{name}/friend(name=${result.name})}" th:style="${user.friends.contains(result)} ? 'display:none' : 'display:block'">
                <div class="form-row">
                    <div class="col">
                        <button class="btn btn-outline-success" type="submit" id="friend">Add friend</button>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+
+<div th:fragment="friends(user)" class="container mt-4">
+
+    <div th:style="${user.incomingFriendRequests.isEmpty()} ? 'display:none' : 'display:block'">
+        <div class="row mb-2 mt-2">
+            <div class="col ">
+                <h3>Incoming friend requests</h3>
+            </div>
+        </div>
+        <div th:each="request : ${user.incomingFriendRequests}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
+            <div th:replace="fragments/user :: request(request=${request})"></div>
+        </div>
+    </div>
+
+    <div>
+        <div class="row mb-2 mt-2">
+            <div class="col-auto ">
+                <h3>Your friends</h3>
+            </div>
+            <div class="col">
+                <a href="/search" class="btn btn-primary">Find users</a>
+            </div>
+        </div>
+
+        <div th:each="friend : ${user.friends}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
+            <div th:replace="fragments/user :: chatUser(user=${friend})"></div>
+        </div>
+    </div>
+
+    <div th:style="${user.sentFriendRequests.isEmpty()} ? 'display:none' : 'display:block'">
+        <div class="row mb-2 mt-2">
+            <div class="col ">
+                <h3>Sent friend requests</h3>
+            </div>
+        </div>
+        <div th:each="request : ${user.sentFriendRequests}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
+            <div th:replace="fragments/user :: sentRequest(request=${request})"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

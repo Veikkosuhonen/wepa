@@ -23,5 +23,55 @@
     </div>
 </div>
 
+<div th:fragment="request(request)">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <img class="rounded-pill" width="50" height="50" th:src="${request.sender.hasProfilePic}? @{ /users/{username}/images/{id}(username=${request.sender.name}, id=${request.sender.profilePic.id})} : @{/assets/jpg/defaultProfilePic.jpg}"/>
+        </div>
+        <i>
+            <div class="col">
+                    <span class="text-dark" th:text="${request.sender.name}"></span>
+            </div>
+            <div class="col-auto text-muted">
+                <span th:text="${#calendars.format(request.date, 'dd/MM/yyyy hh.mm')}"></span>
+            </div>
+        </i>
+        <div class="col pl-5">
+            <form method="post" th:action="@{/users/{name}/friend/accept(name=${request.sender.name})}">
+                <button type="submit" class="btn btn-success">Accept</button>
+            </form>
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/users/{name}/friend/decline(name=${request.sender.name})}">
+                <button type="submit" class="btn btn-outline-danger">Decline</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="sentRequest(request)">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <img class="rounded-pill" width="50" height="50" th:src="${request.sender.hasProfilePic}? @{ /users/{username}/images/{id}(username=${request.sender.name}, id=${request.sender.profilePic.id})} : @{/assets/jpg/defaultProfilePic.jpg}"/>
+        </div>
+        <i>
+            <div class="col">
+                <span class="text-dark" th:text="${request.receiver.name}"></span>
+            </div>
+            <div class="col-auto text-muted">
+                <span th:text="${#calendars.format(request.date, 'dd/MM/yyyy hh.mm')}"></span>
+            </div>
+        </i>
+        <div class="col-auto text-muted">
+            <span th:text="${request.status}"></span>
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/requests/{id}/cancel(id=${request.id})}">
+                <button type="submit" class="btn btn-outline-danger">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.github.vesuvesu.wepa;
+package com.github.vesuvesu.wepa.service;
 
 import com.github.vesuvesu.wepa.account.AccountRepository;
 import com.github.vesuvesu.wepa.post.ImageObject;
@@ -28,6 +28,10 @@ public class UserService {
                         .getContext()
                         .getAuthentication()
                         .getName()).getUser();
+    }
+
+    public User getUserByName(String username) {
+        return userRepository.findByName(username);
     }
 
 

@@ -1,4 +1,4 @@
-package com.github.vesuvesu.wepa;
+package com.github.vesuvesu.wepa.service;
 
 import com.github.vesuvesu.wepa.friend.FriendRequest;
 import com.github.vesuvesu.wepa.friend.FriendRequestRepository;
@@ -100,5 +100,16 @@ public class FriendService {
             return false;
         }
         return true;
+    }
+
+    @Transactional
+    public void cancelRequest(Long id) {
+        User user = userService.getUser();
+        FriendRequest request = friendRequestRepository.getOne(id);
+        if (request.getSender().equals(user)) {
+            request.getReceiver().getIncomingFriendRequests().remove(request);
+            user.getSentFriendRequests().remove(request);
+            friendRequestRepository.delete(request);
+        }
     }
 }
