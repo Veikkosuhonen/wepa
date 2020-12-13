@@ -55,6 +55,16 @@ public class PostService {
         return true;
     }
 
+    @Transactional
+    public boolean removePost(String username, Long id) {
+        User user = userService.getUser();
+        if (!user.equals(userService.getUserByName(username))) return false;
+
+        Post post = postRepository.getOne(id);
+        postRepository.delete(post);
+        return true;
+    }
+
     /**
      * @param authorName
      * @param id of the Post

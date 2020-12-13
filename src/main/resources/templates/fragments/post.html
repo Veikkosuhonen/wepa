@@ -8,7 +8,7 @@
 <div th:fragment="post(post, fullView)" class="card mb-4">
     <script th:src="@{/javascript/post.js}" defer></script>
     <div class="card-header text-muted">
-        <div class="row align-items-center">
+        <div class="row align-items-right">
             <div class="col-auto">
                 <div th:replace="fragments/user :: chatUser(user=${post.author})"></div>
             </div>
@@ -19,13 +19,21 @@
                 <button th:onclick="@{toggleActions('{id}')(id=${post.id})}" type="button" class="btn btn-outline-dark">Actions</button>
             </div>
         </div>
-        <div class="row" style="display:none" th:id="'actions' + ${post.id}">
-            <form method="post" th:action="@{/setprofilepic(postId=${post.id})}">
-                <button type="submit" class="btn btn-dark">Set profile picture</button>
-            </form>
-            <form>
-                <button type="submit" class="btn btn-outline-danger">Remove</button>
-            </form>
+        <div class="row mt-2" style="display:none" th:id="'actions' + ${post.id}">
+            <div class="col-auto">
+                <form method="post" th:action="@{/setprofilepic(postId=${post.id})}">
+                    <button type="submit" class="btn btn-dark">Set as profile picture</button>
+                </form>
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-outline-danger" th:onclick="@{removeButton('{id}')(id=${post.id})}">Remove</button>
+            </div>
+            <div class="col-auto" id="removeConfirm" style="display:none">
+                <form method="post" th:action="@{/users/{user}/posts/{id}/remove(user=${post.author.name}, id=${post.id})}">
+                    <span class="form-text">This will remove the post and its comments permanently</span>
+                    <button type="submit" class="btn btn-danger">Confirm</button>
+                </form>
+            </div>
         </div>
     </div>
 

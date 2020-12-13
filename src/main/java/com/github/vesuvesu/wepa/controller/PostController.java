@@ -32,7 +32,6 @@ public class PostController {
         return userService.getUser().getPosts().size() < 10 ? "newpost" : "profile";
     }
 
-
     @GetMapping("/users/{username}/posts/{id}")
     public String getPost(@PathVariable String username, @PathVariable Long id, Model model) {
         model.addAttribute("post", postService.getPost(username, id));
@@ -42,6 +41,12 @@ public class PostController {
     @PostMapping("/myprofile/newpost")
     public String newPost(@RequestParam("caption") String caption, @RequestParam("file") MultipartFile file) throws IOException {
         boolean result = postService.newPost(caption, file);
+        return "redirect:/profile#album";
+    }
+
+    @PostMapping("/users/{username}/posts/{id}/remove")
+    public String removePost(@PathVariable String username, @PathVariable Long id) {
+        postService.removePost(username, id);
         return "redirect:/profile#album";
     }
 

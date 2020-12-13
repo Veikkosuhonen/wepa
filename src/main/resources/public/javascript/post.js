@@ -15,3 +15,13 @@ function toggleActions(id) {
         actions.style.display = "none";
     }
 }
+
+function removeButton(id) {
+    var removeConfirm = document.getElementById("removeConfirm")
+    removeConfirm.style.display = "block"
+    setTimeout(
+        function() {
+            removeConfirm.style.display = "none"
+        }, 5000
+    )
+}

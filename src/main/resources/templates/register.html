@@ -6,28 +6,27 @@
 <body>
 
 <div class="container p-5">
-
     <form method="post" th:action="@{/register}" th:object="${registration}">
         <div class="mb-3">
             <label for="usernameField" class="form-label">Username</label>
             <input type="text" class="form-control" id="usernameField" required th:field="*{username}"/>
-            <div class="form-text">Username is used for logging in to the app</div>
+            <div class="form-text text-muted">Username is used for logging in to the app</div>
             <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" required th:field="*{name}"/>
-            <div class="form-text">The name that will be shown along your profile</div>
+            <div class="form-text text-muted">The name that will be shown along your profile</div>
             <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password"  required th:field="*{password}"/>
+            <div class="form-text text-muted">Do not re-use any of your existing passwords</div>
             <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
 </div>
 
 </body>
