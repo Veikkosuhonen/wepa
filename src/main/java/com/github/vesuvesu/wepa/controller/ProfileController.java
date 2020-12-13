@@ -27,6 +27,7 @@ public class ProfileController {
         User user = userService.getUser();
         model.addAttribute("user", user);
         model.addAttribute("wall", wallService.getWallPosts(user));
+        System.out.println("getting wall posts of " + user.getName());
         return "profile";
     }
 
@@ -38,11 +39,13 @@ public class ProfileController {
 
         if (!actor.getFriends().contains(user)) {
             model.addAttribute("user", actor);
+            model.addAttribute("wall", wallService.getWallPosts(actor));
             return "profile";
         }
 
         model.addAttribute("user", user);
         model.addAttribute("wall", wallService.getWallPosts(user));
+        System.out.println("getting wall posts of " + user.getName());
         return "publicprofile";
     }
 

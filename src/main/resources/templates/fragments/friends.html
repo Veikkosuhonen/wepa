@@ -5,21 +5,20 @@
 
 <body>
 
-<div th:fragment="friends(user)" class="container mt-4">
-
-    <div th:style="${user.incomingFriendRequests.isEmpty()} ? 'display:none' : 'display:block'">
-        <div class="row mb-2 mt-2">
-            <div class="col ">
-                <h3>Incoming friend requests</h3>
+<div th:fragment="friends(user)">
+    <div class="container">
+        <div th:if="${!user.incomingFriendRequests.isEmpty()}">
+            <div class="row mb-4 mt-4 p-2">
+                <div class="col ">
+                    <h3>Incoming friend requests</h3>
+                </div>
+            </div>
+            <div th:each="request : ${user.incomingFriendRequests}" class="row mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
+                <div th:replace="fragments/user :: request(request=${request})"></div>
             </div>
         </div>
-        <div th:each="request : ${user.incomingFriendRequests}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
-            <div th:replace="fragments/user :: request(request=${request})"></div>
-        </div>
-    </div>
 
-    <div>
-        <div class="row mb-2 mt-2">
+        <div class="row mb-4 mt-4 p-2">
             <div class="col-auto ">
                 <h3>Your friends</h3>
             </div>
@@ -31,23 +30,23 @@
         <div th:each="friend : ${user.friends}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
             <div th:replace="fragments/user :: chatUser(user=${friend})"></div>
         </div>
-    </div>
 
-    <div th:style="${user.sentFriendRequests.isEmpty()} ? 'display:none' : 'display:block'">
-        <div class="row mb-2 mt-2">
-            <div class="col ">
-                <h3>Sent friend requests</h3>
+        <div th:if="${!user.sentFriendRequests.isEmpty()}">
+            <div class="row mb-4 mt-4 p-2" >
+                <div class="col">
+                    <h3>Sent friend requests</h3>
+                </div>
             </div>
-        </div>
-        <div th:each="request : ${user.sentFriendRequests}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
-            <div th:replace="fragments/user :: sentRequest(request=${request})"></div>
+            <div th:each="request : ${user.sentFriendRequests}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
+                <div th:replace="fragments/user :: sentRequest(request=${request})"></div>
+            </div>
         </div>
     </div>
 </div>
 
 <div th:fragment="publicfriends(user)" class="container mt-4">
     <div>
-        <div class="row mb-2 mt-2">
+        <div class="row mb-4 mt-4 p-2">
             <div class="col-auto ">
                 <h3 th:text="${user.name} + '\'s friends'"></h3>
             </div>

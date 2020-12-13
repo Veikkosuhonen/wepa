@@ -56,16 +56,14 @@ public class PostController {
     @Secured("USER")
     @PostMapping("/users/{username}/posts/{id}/like")
     public String likePost(@PathVariable String username, @PathVariable Long id, @RequestParam boolean fullview) {
-
         postService.likePost(username, id);
-        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/profile#album";
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/users/"+username+"#album";
     }
 
     @Secured("USER")
     @PostMapping("/users/{username}/posts/{id}/comment")
     public String commentPost(@PathVariable String username, @PathVariable Long id, @RequestParam String text, @RequestParam boolean fullview) {
-
         postService.comment(username, text, id);
-        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/profile#album";
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/users/"+username+"#album";
     }
 }

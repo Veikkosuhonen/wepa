@@ -87,7 +87,6 @@
                 <div class="row align-items-center">
                     <div class="col-auto">
                         <div th:replace="fragments/user :: chatUser(user=${comment.author})"></div>
-
                     </div>
                     <div class="col-auto text-muted">
                         <i><span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span></i>
@@ -164,10 +163,9 @@
                 <div class="row align-items-center">
                     <div class="col-auto">
                         <div th:replace="fragments/user :: chatUser(user=${comment.author})"></div>
-
                     </div>
                     <div class="col-auto text-muted">
-                        <span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span>
+                        <i><span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span></i>
                     </div>
                     <div class="col">
                         <span th:text="${comment.text}"></span>

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,11 +29,13 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
         http.headers().frameOptions().sameOrigin();
 
         http.authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/h2-console","/h2-console/**").permitAll()
+                .antMatchers("/h2-console","/h2-console/**").hasAuthority("ADMIN")
+                .antMatchers("/accounts").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()
-                .formLogin().permitAll().and()
-                .logout().permitAll();
+                .formLogin().and()
+                .logout().logoutSuccessUrl("/").permitAll();
     }
 
     @Autowired

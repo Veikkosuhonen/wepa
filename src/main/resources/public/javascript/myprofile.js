@@ -1,4 +1,4 @@
-const elements = ['wall', 'album', 'friend']
+const elements = ['wall', 'album', 'friends']
 
 toggleElement()
 

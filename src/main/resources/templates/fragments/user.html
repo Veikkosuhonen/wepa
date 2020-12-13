@@ -23,6 +23,13 @@
     </div>
 </div>
 
+<div th:fragment="searchUser(user)">
+    <img class="rounded-pill" width="50" height="50" th:src="${user.hasProfilePic}? @{ /users/{username}/images/{id}(username=${user.name}, id=${user.profilePic.id})} : @{/assets/jpg/defaultProfilePic.jpg}"/>
+    <i>
+        <span th:text="${user.name}"></span>
+    </i>
+</div>
+
 <div th:fragment="request(request)">
     <div class="row align-items-center">
         <div class="col-auto">

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +51,16 @@ public class AccountController {
     @PostMapping("/register")
     public String addAccount(@Valid @ModelAttribute Registration registration, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
+        if (accountRepository.findByUsername(registration.getUsername()) != null) {
+            bindingResult.addError(new FieldError("registration", "username", "The username '"+registration.getUsername()+"' is taken"));
+            return "register";
+        }
+
+        if (userRepository.findByName(registration.getName()) != null) {
+            bindingResult.addError(new FieldError("registration", "name", "The name '"+registration.getName()+"' is taken"));
             return "register";
         }
 

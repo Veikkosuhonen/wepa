@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/layout :: head"></head>
 
@@ -7,7 +7,33 @@
 
 <div th:replace="fragments/layout :: jumbotron"></div>
 
-<div th:replace="fragments/layout :: nav"></div>
+<nav th:fragment="nav" class="navbar navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
+            <div sec:authorize="hasAuthority('USER')" class="nav-item col-auto">
+                <a class="nav-link" href="/profile">My profile</a>
+            </div>
+            <div sec:authorize="hasAuthority('ADMIN')" class="nav-item col-auto">
+                <a class="nav-link" href="/accounts">Manage accounts</a>
+            </div>
+            <div sec:authorize="hasAuthority('USER')" class="nav-item col-auto">
+                <a class="nav-link" href="/search">Search</a>
+            </div>
+            <div sec:authorize="hasAuthority('USER')" class="nav-item col">
+                <a class="nav-link" href="/logout">Logout</a>
+            </div>
+            <div sec:authorize="!hasAuthority('USER')" class="nav-item col">
+                <a class="nav-link" href="/login">Login</a>
+            </div>
+            <div sec:authorize="!hasAuthority('USER')" class="nav-item col">
+                <a class="nav-link" href="/register">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
 
 <div class="container">
     <div class="row p-3">
