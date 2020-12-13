@@ -1,7 +1,10 @@
 package com.github.vesuvesu.wepa.controller;
 
+import com.github.vesuvesu.wepa.post.ImageObject;
+import com.github.vesuvesu.wepa.post.Post;
 import com.github.vesuvesu.wepa.service.PostService;
 import com.github.vesuvesu.wepa.service.UserService;
+import com.github.vesuvesu.wepa.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class PostController {
@@ -23,7 +29,7 @@ public class PostController {
     @Secured("USER")
     @GetMapping("/newpost")
     public String newPost() {
-        return "newpost";
+        return userService.getUser().getPosts().size() < 10 ? "newpost" : "profile";
     }
 
 
@@ -33,6 +39,11 @@ public class PostController {
         return "post";
     }
 
+    @PostMapping("/myprofile/newpost")
+    public String newPost(@RequestParam("caption") String caption, @RequestParam("file") MultipartFile file) throws IOException {
+        boolean result = postService.newPost(caption, file);
+        return "redirect:/profile#album";
+    }
 
     @Secured("USER")
     @PostMapping("/users/{username}/posts/{id}/like")

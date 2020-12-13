@@ -42,17 +42,4 @@ public class ImageController {
         User author = userRepository.findByName(name);
         return postRepository.findByAuthor(author).get(0).getImage().getContent();
     }
-
-    @PostMapping("/myprofile/newpost")
-    public String newPost(@RequestParam("caption") String caption, @RequestParam("file")MultipartFile file) throws IOException {
-        User user = userService.getUser();
-
-        ImageObject img = new ImageObject(file.getBytes());
-        imageRepository.save(img);
-
-        Post post = new Post(img, caption, user);
-        postRepository.save(post);
-
-        return "redirect:/profile#album";
-    }
 }

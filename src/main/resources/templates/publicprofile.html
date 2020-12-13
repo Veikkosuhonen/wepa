@@ -15,25 +15,25 @@
 
     <div class="row border border-secondary rounded p-3">
         <div class="col">
-            <button href="#wall" class="btn btn-primary" onclick="toggleElement('wall')" id="wallButton">Wall</button>
+            <a href="#wall" class="btn btn-primary" onclick="toggleElement('wall')" id="wallButton">Wall</a>
         </div>
         <div class="col">
-            <button href="#album" class="btn btn-outline-primary" onclick="toggleElement('album')" id="albumButton">Album</button>
+            <a href="#album" class="btn btn-outline-primary" onclick="toggleElement('album')" id="albumButton">Album</a>
         </div>
         <div class="col-auto">
-            <button href="#friend" class="btn btn-primary" onclick="toggleElement('friend')" id="friendButton">Friends</button>
+            <a href="#friend" class="btn btn-primary" onclick="toggleElement('friend')" id="friendButton">Friends</a>
         </div>
     </div>
 
-    <div id="wall" style="display:block">
+    <div id="_wall" style="display:block">
         <div th:replace="fragments/wall :: wall(user=${user})"></div>
     </div>
 
-    <div id="album" style="display:none">
+    <div id="_album" style="display:none">
         <div th:replace="fragments/album :: publicalbum(user=${user})"></div>
     </div>
 
-    <div id="friend" style="display:none">
+    <div id="_friend" style="display:none">
         <div th:replace="fragments/friends :: publicfriends(user=${user})"></div>
     </div>
 
