@@ -2,6 +2,7 @@ package com.github.vesuvesu.wepa.controller;
 
 import com.github.vesuvesu.wepa.account.Account;
 import com.github.vesuvesu.wepa.account.AccountRepository;
+import com.github.vesuvesu.wepa.account.Registration;
 import com.github.vesuvesu.wepa.user.User;
 import com.github.vesuvesu.wepa.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Controller
 public class AccountController {
@@ -25,6 +30,16 @@ public class AccountController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @ModelAttribute
+    private Registration getRegistration() {
+        return new Registration();
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
+
     @GetMapping("/accounts")
     public String list(Model model) {
         model.addAttribute("accounts", accountRepository.findAll());
@@ -32,20 +47,20 @@ public class AccountController {
     }
 
     @Transactional
-    @PostMapping("/accounts")
-    public String addAccount(@RequestParam String username, @RequestParam String password, @RequestParam String name) {
-        if (accountRepository.findByUsername(username) != null) {
-            return "redirect:/accounts";
+    @PostMapping("/register")
+    public String addAccount(@Valid @ModelAttribute Registration registration, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register";
         }
 
-        Account a = new Account(username, passwordEncoder.encode(password));
+        Account a = new Account(registration.getUsername(), passwordEncoder.encode(registration.getPassword()));
         accountRepository.save(a);
 
-        User u = new User(name);
+        User u = new User(registration.getName());
         userRepository.save(u);
 
         a.setUser(u);
 
-        return "redirect:/accounts";
+        return "redirect:/profile";
     }
 }

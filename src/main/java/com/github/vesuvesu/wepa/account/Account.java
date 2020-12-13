@@ -2,7 +2,6 @@ package com.github.vesuvesu.wepa.account;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Size;
 
 import com.github.vesuvesu.wepa.user.User;
 import lombok.AllArgsConstructor;
@@ -23,6 +22,11 @@ public class Account extends AbstractPersistable<Long> {
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Account(Registration submission) {
+        this.username = submission.getUsername();
+        this.password = submission.getPassword();
     }
 
     @OneToOne
