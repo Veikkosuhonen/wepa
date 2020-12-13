@@ -3,6 +3,8 @@ package com.github.vesuvesu.wepa.service;
 import com.github.vesuvesu.wepa.account.AccountRepository;
 import com.github.vesuvesu.wepa.post.ImageObject;
 import com.github.vesuvesu.wepa.post.ImageRepository;
+import com.github.vesuvesu.wepa.post.Post;
+import com.github.vesuvesu.wepa.post.PostRepository;
 import com.github.vesuvesu.wepa.user.User;
 import com.github.vesuvesu.wepa.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class UserService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private ImageRepository imageRepository;
+    private PostRepository postRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -35,9 +37,11 @@ public class UserService {
     }
 
 
-    public void setProfilePic(Long imgId) {
+    public void setProfilePic(Long postId) {
         User user = getUser();
-        user.setProfilePic(imageRepository.getOne(imgId));
+        Post post = postRepository.getOne(postId);
+        if (!post.getAuthor().equals(user)) return;
+        user.setProfilePic(post.getImage());
         user.setHasProfilePic(true);
         userRepository.save(user);
     }

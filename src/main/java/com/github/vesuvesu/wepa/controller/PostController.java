@@ -39,7 +39,7 @@ public class PostController {
     public String likePost(@PathVariable String username, @PathVariable Long id, @RequestParam boolean fullview) {
 
         postService.likePost(username, id);
-        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myprofile#album";
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/profile#album";
     }
 
     @Secured("USER")
@@ -47,6 +47,6 @@ public class PostController {
     public String commentPost(@PathVariable String username, @PathVariable Long id, @RequestParam String text, @RequestParam boolean fullview) {
 
         postService.comment(username, text, id);
-        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/myprofile#album";
+        return fullview ? "redirect:/users/"+username+"/posts/"+id : "redirect:/profile#album";
     }
 }

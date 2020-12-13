@@ -20,6 +20,22 @@
     </div>
 </div>
 
+<div th:fragment="publicalbum(user)">
+    <div class="container">
+        <div class="row mt-4 mb-4 p-2">
+            <h3 th:text="${user.name} + '\'s album'"></h3>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col-lg-6" th:each="post : ${user.posts}">
+                <div th:replace="fragments/post :: publicpost(post=${post}, fullView=false)"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

@@ -45,5 +45,19 @@
     </div>
 </div>
 
+<div th:fragment="publicfriends(user)" class="container mt-4">
+    <div>
+        <div class="row mb-2 mt-2">
+            <div class="col-auto ">
+                <h3 th:text="${user.name} + '\'s friends'"></h3>
+            </div>
+        </div>
+
+        <div th:each="friend : ${user.friends}" class="row-fluid mb-2 p-2 pl-4 pr-4 rounded-pill btn btn-light">
+            <div th:replace="fragments/user :: chatUser(user=${friend})"></div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

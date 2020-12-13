@@ -26,13 +26,13 @@ public class FriendController {
     @PostMapping("/users/{name}/friend/{action}")
     public String resolveFriendRequest(@PathVariable String name, @PathVariable String action) {
         friendService.resolveRequest(name, action);
-        return "redirect:/myprofile#friends";
+        return "redirect:/profile#friends";
     }
 
     @Secured("USER")
     @PostMapping("/requests/{id}/cancel")
     public String cancelFriendRequest(@PathVariable Long id) {
         friendService.cancelRequest(id);
-        return "redirect:/myprofile#friends";
+        return "redirect:/profile#friends";
     }
 }

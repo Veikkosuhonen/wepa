@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+
+<div th:fragment="wallPost(post)" class="card-fluid mb-4">
+    <script th:src="@{/javascript/post.js}" defer></script>
+    <div class="card-header text-muted">
+        <div class="col ">
+            <div th:replace="fragments/user :: chatUser(user=${post.author})"></div>
+        </div>
+        <span th:text="${#calendars.format(post.date, 'dd/MM/yyyy hh.mm')}"></span>
+    </div>
+
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col ml-3">
+                <p th:text="${post.text}" class="card-text"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto ml-3">
+                <form class="form-row align-items-center"
+                      method="POST"
+                      th:action="@{/users/{wallOwner}/wall/{id}/like(wallOwner=${post.wallOwner.name}, id=${post.id})}">
+                    <button type="submit" class="btn btn-light mr-2">
+                        <img class="img-fluid" src="/assets/svg/heart.svg" title="Like">
+                    </button>
+                    <span th:text="${post.likes}"></span>
+                </form>
+            </div>
+            <div class="col-auto">
+                <div class="row align-items-center mr-2">
+                    <button type="button" th:onclick="@{toggleComments('{id}')(id=${post.id})}" class="btn btn-light mr-2">
+                        <img class="img-fluid" src="/assets/svg/chat.svg" title="Comment">
+                    </button>
+                    <span th:text="${post.comments.size()}"></span>
+                </div>
+            </div>
+        </div>
+
+        <div th:id="'comments' + ${post.id}" style="display:none">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <form class="row"
+                          method="post"
+                          th:action="@{/users/{wallOwner}/wall/{id}/comment(wallOwner=${post.wallOwner.name}, id=${post.id})}">
+                        <div class="col">
+                            <textarea class="form-control" placeholder="Your comment" maxlength="140" required="true" rows="1" name="text"></textarea>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-outline-primary">Send</button>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item" th:each="comment : ${post.comments}">
+                    <div class="row">
+                        <div class="col-auto text-muted">
+                            <div th:replace="fragments/user :: chatUser(user=${comment.author})"></div>
+                            <span th:text="${#calendars.format(comment.date, 'dd/MM/yyyy hh.mm')}"></span>
+                        </div>
+                        <div class="col">
+                            <span th:text="${comment.text}"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

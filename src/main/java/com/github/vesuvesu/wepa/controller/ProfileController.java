@@ -18,11 +18,10 @@ public class ProfileController {
     private UserService userService;
 
     @Secured("USER")
-    @GetMapping("/myprofile")
+    @GetMapping("/profile")
     public String userView(Model model) {
         User user = userService.getUser();
         model.addAttribute("user", user);
-        model.addAttribute("owner", true);
         return "profile";
     }
 
@@ -34,19 +33,17 @@ public class ProfileController {
 
         if (!actor.getFriends().contains(user)) {
             model.addAttribute("user", actor);
-            model.addAttribute("owner", true);
             return "profile";
         }
 
         model.addAttribute("user", user);
-        model.addAttribute("owner", false);
-        return "profile";
+        return "publicprofile";
     }
 
     @Secured("USER")
     @PostMapping("/setprofilepic")
-    public String setProfilePic(@RequestParam Long imgId) {
-        userService.setProfilePic(imgId);
-        return "redirect:/myprofile#album";
+    public String setProfilePic(@RequestParam Long postId) {
+        userService.setProfilePic(postId);
+        return "redirect:/profile#album";
     }
 }

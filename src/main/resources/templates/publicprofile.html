@@ -30,11 +30,11 @@
     </div>
 
     <div id="album" style="display:none">
-        <div th:replace="fragments/album :: myalbum(user=${user})"></div>
+        <div th:replace="fragments/album :: publicalbum(user=${user})"></div>
     </div>
 
     <div id="friend" style="display:none">
-        <div th:replace="fragments/friends :: friends(user=${user})"></div>
+        <div th:replace="fragments/friends :: publicfriends(user=${user})"></div>
     </div>
 
 </div>

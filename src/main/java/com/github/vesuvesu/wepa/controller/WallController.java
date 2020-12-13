@@ -20,7 +20,7 @@ public class WallController {
     @PostMapping("/users/{wallOwnerName}/wall")
     public String wallPost(@RequestParam String text, @PathVariable String wallOwnerName) {
         boolean result = wallService.wallPost(text, wallOwnerName);
-        return result ? "redirect:/users/"+wallOwnerName+"#wall" : "redirect:/myprofile";
+        return result ? "redirect:/users/"+wallOwnerName+"#wall" : "redirect:/profile";
     }
 
     @Transactional
@@ -28,7 +28,7 @@ public class WallController {
     @PostMapping("/users/{wallOwnerName}/wall/{id}/comment")
     public String commentWallPost(@RequestParam String text, @PathVariable String wallOwnerName, @PathVariable Long id) {
         boolean result = wallService.commentWallPost(text, wallOwnerName, id);
-        return result ? "redirect:/users/"+wallOwnerName+"#wall" : "redirect:/myprofile";
+        return result ? "redirect:/users/"+wallOwnerName+"#wall" : "redirect:/profile";
     }
 
     @Transactional
@@ -36,6 +36,6 @@ public class WallController {
     @PostMapping("/users/{wallOwnerName}/wall/{id}/like")
     public String likeWallPost(@PathVariable String wallOwnerName, @PathVariable Long id) {
         boolean result = wallService.likeWallPost(wallOwnerName, id);
-        return result ? "redirect:/users/"+wallOwnerName+"#wall" : "redirect:/myprofile";
+        return result ? "redirect:/users/"+wallOwnerName+"#wall" : "redirect:/profile";
     }
 }

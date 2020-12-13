@@ -17,8 +17,9 @@
     </form>
 
     <div th:each="wallPost : ${user.wallPosts}" class="row-fluid p-1">
-        <div th:replace="fragments/post :: wallPost(post=${wallPost})"></div>
+        <div th:replace="fragments/wallpost :: wallPost(post=${wallPost})"></div>
     </div>
 </div>
+
 </body>
 </html>
