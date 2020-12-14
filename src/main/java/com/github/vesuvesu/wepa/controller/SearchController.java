@@ -41,7 +41,7 @@ public class SearchController {
     @Secured("USER")
     @GetMapping("/search/{entry}")
     public String searchResults(@PathVariable String entry, Model model) {
-        List<User> results = userRepository.findByNameContaining(entry);
+        List<User> results = userRepository.findByNameContainingIgnoreCase(entry);
         model.addAttribute("users", results);
         model.addAttribute("user", userService.getUser());
         return "search";

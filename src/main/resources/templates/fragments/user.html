@@ -74,7 +74,7 @@
 <div th:fragment="sentRequest(request)">
     <div class="row align-items-center">
         <div class="col-auto">
-            <img class="rounded-pill" width="50" height="50" th:src="${request.sender.hasProfilePic}? @{ /users/{username}/images/{id}(username=${request.sender.name}, id=${request.sender.profilePic.id})} : @{/assets/jpg/defaultProfilePic.jpg}"/>
+            <img class="rounded-pill" width="50" height="50" th:src="${request.receiver.hasProfilePic}? @{ /users/{username}/images/{id}(username=${request.receiver.name}, id=${request.receiver.profilePic.id})} : @{/assets/jpg/defaultProfilePic.jpg}"/>
         </div>
         <i>
             <div class="col">
