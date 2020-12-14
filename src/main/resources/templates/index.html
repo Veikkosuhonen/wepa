@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<head th:replace="fragments/layout :: head"></head>
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title id="tab-title">Fakebook</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
 
 <body>
 
-<div th:replace="fragments/layout :: jumbotron"></div>
+<div class="jumbotron text-center" style="margin-bottom:0; background-image: url('https://images.pexels.com/photos/734973/pexels-photo-734973.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')">
+    <div class="container shadow-lg p-3 rounded-pill bg-primary">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <img class="rounded-pill" width="200" height="200" th:src="@{/assets/jpg/defaultProfilePic.jpg}"/>
+            </div>
+            <div class="col">
+                <h1 class="display-1 text-white" id="title">Fakebook</h1>
+                <h2>My amazing project</h2>
+            </div>
+        </div>
+    </div>
+</div>
 
 <nav th:fragment="nav" class="navbar navbar-dark bg-dark sticky-top">
     <div class="container">
@@ -36,11 +53,23 @@
 </nav>
 
 <div class="container">
-    <div class="row p-3">
-        <h1 th:text="${'Welcome to my ' + message + ' Wepa-project app'}">Welcome to my Wepa-project app</h1>
+    <div class="row p-3 justify-content-center">
+        <h1>Welcome to my facebook app</h1>
     </div>
-    <div class="row">
-        <section th:replace="fragments/lorem :: lorem"></section>
+    <div class="row justify-content-center">
+        <script th:src="@{/javascript/index.js}"></script>
+        <div class="col-7 p-4 bg-light rounded">
+            <p>It was made as an assignment project for a Java web-server course, using the <a href="https://spring.io/">Spring</a>-framework and <a href="https://www.thymeleaf.org/">Thymeleaf</a></p>
+            <p>To start using it, <a href="/register">register</a> a new account, after which you can log in to the app</p>
+            <p>You can then search other users by their name, and send and accept friend requests
+                Each user has, under their profile, an album,
+                in which the owner can post pictures, and a wall, to which the owner and their friends can send messages.
+                Friends can like and comment each others posts and messages.
+            </p>
+            <p>The source code is available here: <a href="https://github.com/Veikkosuhonen/wepa">https://github.com/Veikkosuhonen/wepa</a></p>
+            <p>Why Fakebook? Its literally the most uncreative name? I know. That's why you can change it here:</p>
+            <input id="title-input" class="form-control" type="text" placeholder="A better name for this app" oninput="updateTitle()"/>
+        </div>
     </div>
 </div>
 
