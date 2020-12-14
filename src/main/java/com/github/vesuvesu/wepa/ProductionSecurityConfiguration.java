@@ -32,6 +32,7 @@ public class ProductionSecurityConfiguration extends WebSecurityConfigurerAdapte
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/assets/**").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/h2-console","/h2-console/**").hasAuthority("ADMIN")
                 .antMatchers("/accounts").hasAuthority("ADMIN")
