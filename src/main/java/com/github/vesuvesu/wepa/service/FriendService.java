@@ -23,7 +23,6 @@ public class FriendService {
     @Autowired
     private UserService userService;
 
-
     @Transactional
     public boolean sendRequest(String receiverName) {
 

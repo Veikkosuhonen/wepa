@@ -16,6 +16,7 @@ public class DatabaseConfig {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
+        config.setAutoCommit( false );
         return new HikariDataSource(config);
     }
 }
