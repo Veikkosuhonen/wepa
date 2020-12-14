@@ -48,4 +48,12 @@ public class UserService {
         user.setHasProfilePic(true);
         userRepository.save(user);
     }
+
+    @Transactional
+    public void resetProfilePic() {
+        User user = getUser();
+        user.setProfilePic(null);
+        user.setHasProfilePic(false);
+        userRepository.save(user);
+    }
 }

@@ -62,6 +62,7 @@ public class PostService {
         if (!user.equals(userService.getUserByName(username))) return false;
 
         Post post = postRepository.getOne(id);
+        if (post.getImage().equals(user.getProfilePic())) userService.resetProfilePic();
         postRepository.delete(post);
         return true;
     }

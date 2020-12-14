@@ -54,10 +54,10 @@
 
 <div class="container">
     <div class="row p-3 justify-content-center">
-        <h1>Welcome to my facebook app</h1>
+        <h1>Welcome to my old-school facebook app</h1>
     </div>
     <div class="row justify-content-center">
-        <script th:src="@{/javascript/index.js}" defer></script>
+        <script th:src="@{/javascript/title.js}" defer></script>
         <div class="col-7 p-4 bg-light rounded">
             <p>It was made as an assignment project for a Java web-server course, using the <a href="https://spring.io/">Spring</a>-framework and <a href="https://www.thymeleaf.org/">Thymeleaf</a>.
             It is entirely styled using <a href="https://getbootstrap.com/">Twitter bootstrap</a>.
@@ -69,7 +69,7 @@
                 Friends can like and comment each others posts and messages.
             </p>
             <p>The source code is available here: <a href="https://github.com/Veikkosuhonen/wepa">https://github.com/Veikkosuhonen/wepa</a></p>
-            <p>Why Fakebook? Its literally the most uncreative name? I know. That's why you can change it here:</p>
+            <p>Why <span id="title-text">Fakebook</span>? Its literally the most uncreative name? I know. That's why you can change it here:</p>
             <input id="title-input" class="form-control" type="text" placeholder="A better name for this app" oninput="updateTitle()"/>
         </div>
     </div>

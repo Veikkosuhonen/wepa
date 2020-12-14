@@ -3,4 +3,5 @@ function updateTitle() {
     if (newText === '') newText = 'Fakebook';
     document.getElementById('title').innerHTML = newText
     document.getElementById('tab-title').innerHTML = newText
+    document.getElementById('title-text').innerHTML = newText
 }

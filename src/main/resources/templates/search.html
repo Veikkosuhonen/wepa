@@ -30,7 +30,7 @@
            <div class="col-4" th:if="${user.friends.contains(result)}">
                <div th:replace="fragments/user :: chatUser(user=${result})"></div>
            </div>
-           <div class="col-auto" th:if="${!user.friends.contains(result)}">
+           <div class="col-auto" th:if="${!user.friends.contains(result) || !user.equals(result)}">
                <form method="post" th:action="@{/users/{name}/friend(name=${result.name})}">
                    <button class="btn btn-outline-success" type="submit" id="friend">Add friend</button>
                </form>
