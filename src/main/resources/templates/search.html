@@ -23,23 +23,23 @@
     </form>
 
     <div class="container p-4 m-2">
-       <div class="row mb-4 align-items-center" th:each="result : ${users}">
-           <div class="card">
-               <div class="card-body">
-                   <div class="row content-align-center">
-                       <div class="col-auto">
-                           <div th:replace="fragments/user :: searchUser(user=${result})"></div>
-                       </div>
-                       <div class="col-6"  th:if="${!user.friends.contains(result)}">
-                           <form class="form-row" method="post" th:action="@{/users/{name}/friend(name=${result.name})}">
-                               <button class="btn btn-outline-success" type="submit" id="friend">Add friend</button>
-                           </form>
-                       </div>
-                       <div class="col-6" th:if="${user.friends.contains(result)}">
-                           <button class="btn btn-outline-success" disabled>You are friends</button>
-                       </div>
-                   </div>
-               </div>
+       <div class="row mb-4 p-2 align-items-center border border-info rounded" th:each="result : ${users}">
+           <div class="col-4" th:if="${!user.friends.contains(result)}">
+               <div th:replace="fragments/user :: searchUser(user=${result})"></div>
+           </div>
+           <div class="col-4" th:if="${user.friends.contains(result)}">
+               <div th:replace="fragments/user :: chatUser(user=${result})"></div>
+           </div>
+           <div class="col-auto" th:if="${!user.friends.contains(result)}">
+               <form method="post" th:action="@{/users/{name}/friend(name=${result.name})}">
+                   <button class="btn btn-outline-success" type="submit" id="friend">Add friend</button>
+               </form>
+           </div>
+           <div class="col-auto" th:if="${user.friends.contains(result)}">
+               <button class="btn btn-outline-success" disabled>You are friends</button>
+           </div>
+           <div class="col-auto" th:if="${user.equals(result)}">
+               <button class="btn btn-outline-success" disabled>This is you</button>
            </div>
        </div>
     </div>
