@@ -57,7 +57,15 @@
         <h1>Welcome to my old-school facebook app</h1>
     </div>
     <div class="row justify-content-center">
-        <script th:src="@{/javascript/title.js}" defer></script>
+        <script defer>
+            function updateTitle() {
+                var newText = document.getElementById('title-input').value
+                if (newText === '') newText = 'Fakebook';
+                document.getElementById('title').innerHTML = newText
+                document.getElementById('tab-title').innerHTML = newText
+                document.getElementById('title-text').innerHTML = newText
+            }
+        </script>
         <div class="col-7 p-4 bg-light rounded">
             <p>It was made as an assignment project for a Java web-server course, using the <a href="https://spring.io/">Spring</a>-framework and <a href="https://www.thymeleaf.org/">Thymeleaf</a>.
             It is entirely styled using <a href="https://getbootstrap.com/">Twitter bootstrap</a>.
