@@ -19,8 +19,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
-@Profile("development")
-public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Profile("production")
+public class ProductionSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -33,8 +33,8 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/h2-console","/h2-console/**").permitAll()
-                .antMatchers("/accounts").permitAll()
+                .antMatchers("/h2-console","/h2-console/**").hasAuthority("ADMIN")
+                .antMatchers("/accounts").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()
                 .formLogin().and()
                 .logout().logoutSuccessUrl("/").permitAll();

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+<div class="container mt-4">
+    <h1 th:if="${errorCode.equals('404')}">
+        You are lost.
+        <small class="text-muted">404 page not found</small>
+    </h1>
+    <h1 th:if="${errorCode.equals('405')}">
+        You can't talk to the server like that
+        <small class="text-muted">405 method not allowed</small>
+    </h1>
+    <h1 th:if="${errorCode.equals('500')}">
+        Oops something went wrong
+        <small class="text-muted">The server didn't like what you just did</small>
+    </h1>
+    <h1 th:if="${errorCode.equals('')}">
+        Oops something went wrong
+        <small class="text-muted">Nobody knows what happened. It just happened.</small>
+    </h1>
+    <a href="/" type="button" class="btn btn-primary mt-2">Go home</a>
+</div>
+</body>
+</html>
