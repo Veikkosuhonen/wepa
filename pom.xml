@@ -94,14 +94,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        
-        <!-- TMC -->
-        <dependency>
-            <groupId>fi.helsinki.cs.tmc</groupId>
-            <artifactId>edu-test-utils</artifactId>
-            <version>0.4.2</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
     
     <build>
