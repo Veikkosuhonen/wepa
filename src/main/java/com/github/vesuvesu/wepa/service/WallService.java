@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -30,11 +31,13 @@ public class WallService {
     @Autowired
     UserService userService;
 
+    @Transactional
     public List<WallPost> getWallPosts(User user) {
         Pageable pageable = PageRequest.of(0, 25, Sort.by("date").descending());
         return wallPostRepository.findByWallOwner(user, pageable);
     }
 
+    @Transactional
     public boolean wallPost(String text, String wallOwnerName) {
         User wallOwner = userRepository.findByName(wallOwnerName);
         User author = userService.getUser();
@@ -50,6 +53,7 @@ public class WallService {
         return true;
     }
 
+    @Transactional
     public boolean commentWallPost(String text, String wallOwnerName, Long id) {
         User author = userService.getUser();
         User wallOwner = userRepository.findByName(wallOwnerName);
@@ -67,6 +71,7 @@ public class WallService {
         return true;
     }
 
+    @Transactional
     public boolean likeWallPost(String wallOwnerName, Long id) {
         User actor = userService.getUser();
         User wallOwner = userRepository.findByName(wallOwnerName);
