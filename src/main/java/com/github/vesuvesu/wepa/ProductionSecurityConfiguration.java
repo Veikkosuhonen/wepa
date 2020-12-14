@@ -37,7 +37,7 @@ public class ProductionSecurityConfiguration extends WebSecurityConfigurerAdapte
                 .antMatchers("/h2-console","/h2-console/**").hasAuthority("ADMIN")
                 .antMatchers("/accounts").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()
-                .formLogin().successForwardUrl("/profile").and()
+                .formLogin().and()
                 .logout().logoutSuccessUrl("/").permitAll();
     }
 
