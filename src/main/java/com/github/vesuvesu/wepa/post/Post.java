@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +18,7 @@ import java.util.List;
 public class Post extends AbstractPersistable<Long> {
 
     @OneToOne
+    @Basic(fetch = FetchType.LAZY)
     private ImageObject image;
 
     private Date date;

@@ -16,6 +16,5 @@ import javax.persistence.Lob;
 public class ImageObject extends AbstractPersistable<Long> {
 
     @Lob
-    @Basic(fetch = FetchType.LAZY)
     private byte[] content;
 }
