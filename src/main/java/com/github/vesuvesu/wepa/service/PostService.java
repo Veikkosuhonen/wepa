@@ -34,6 +34,7 @@ public class PostService {
      * @param id of the Post
      * @return Post
      */
+    @Transactional
     public Post getPost(String authorName, Long id) {
         return postRepository.findByAuthorAndId(
                 userRepository.findByName(authorName),
