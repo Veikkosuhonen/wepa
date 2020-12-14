@@ -16,3 +16,10 @@ function toggleElement(id) {
         document.getElementById(e + 'Button').className = e == id ? "btn btn-primary" : "btn btn-outline-primary"
     }
 }
+
+function showProfilePicToolTip() {
+    document.getElementById('profilePicToolTip').style.display = 'block'
+    setTimeout( () => {
+        document.getElementById('profilePicToolTip').style.display = 'none'
+    }, 5000)
+}
