@@ -1,0 +1,7 @@
+Heroku-osoite: https://fathomless-gorge-66367.herokuapp.com/
+
+Ohje: 
+Sovellusta buildatessa Netbeansissa (tai IntelliJssä) tulee profiiliksi valita "development". 
+Käyttöliittymän ei pitäisi olla niin vaikea että tarvitsee jotain ohjetta siitä kirjoittaa. 
+Albumiin lisättyihin kuviin liittyvät toiminnot tulevat esiin painamalla "Actions"-nappia, ja kommentit tulevat näkyviin kommenttisymbolia painamalla.
+Kaverit ja kaveripyynnöt näkyvät friends-tabissa oman profiilin näkymässä.

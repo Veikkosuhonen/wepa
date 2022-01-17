@@ -61,7 +61,7 @@ public class User extends AbstractPersistable<Long> {
     }
 
     public boolean addFriend(User friend) {
-        if (this.friends.contains(friend) && this.equals(friend)) {
+        if (this.friends.contains(friend) && !this.equals(friend)) {
             return false;
         }
         this.friends.add(friend);
